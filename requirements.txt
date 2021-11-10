@@ -1,0 +1,6 @@
+Flask==1.1.2
+gunicorn==20.0.4
+requests==2.25.1
+flask_login
+flask_sqlalchemy
+psycopg2
