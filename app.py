@@ -9,7 +9,8 @@ from flask import Flask
 import requests
 from flask import render_template
 import spoonacular as sp
-
+import os
+from dotenv import find_dotenv, load_dotenv
 app = Flask(__name__)
 
 @app.route("/")
@@ -32,17 +33,18 @@ def food_costs():
 '''
 @app.route("/nutrition")
 def nutrition():
+    load_dotenv(find_dotenv())
+    #nutrition of food
     nutrients_name = []
     nutrients_amount = []
     nutrients_unit = []
-    api = sp.API("b702fb3e3d514cab9fb4bc3bf380905b")
+    api = sp.API(os.getenv("API_KEY"))
     food = "chicken"
     # find the ingredient id 
     response = api.autocomplete_ingredient_search(f"{food}", number=1,metaInformation =True)
     data = response.json()
     
     food_id = data[0]["id"]
-    food_image = data[0]["image"]
     #find the nutrtion information using id and the amount
     response_for_nutrtition = api.get_food_information(f"{food_id}",amount =1)
     nutrition_data = response_for_nutrtition.json()
