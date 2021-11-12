@@ -5,7 +5,10 @@ from pprint import pprint
 
 load_dotenv(find_dotenv())
 api = sp.API(os.getenv("API_KEY"))
+query = input("Input an ingredient:")
+number = int(input("How many recipes would you like to see?"))
 
-response = api.get_a_random_food_joke()
+response = api.autocomplete_ingredient_search(query=query, number=number)
 data = response.json()
-print(data["text"])
+for i in range(number):
+    print(data[i]["name"])
