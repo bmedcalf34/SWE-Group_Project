@@ -120,7 +120,6 @@ def nutrition():
 
     print(nutrients)
 
-
     return render_template("nutrition.html",
                 data = data[0],
                 nutrient_name = nutrients_name,
@@ -129,7 +128,7 @@ def nutrition():
                 len = len(nutrients),
      )
 
-@app.route("/recipes")
+@app.route("/recipes", methods=["GET", "POST"])
 def recipes():
     print('Recipes served')
     return render_template("recipes.html")
