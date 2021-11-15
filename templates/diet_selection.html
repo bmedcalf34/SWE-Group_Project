@@ -70,29 +70,76 @@ body {
 <div class="row">
   <div class="column">
   <figure>
+   <a href="diet_selection_carbs">
     <img src="{{ url_for('static', filename= 'images/' + 'carbs.jpg') }}" alt="Nature" style="width:100%" width="150" height="200" onclick="myFunction(this);">
+  </a>
   <figcaption>Hibernating for the Winter</figcaption>
   </figure>
   </div>
   <div class="column">
     <figure>
+	<a href="diet_selection_meat">
 	<img src="{{ url_for('static', filename= 'images/' + 'protein.jpg') }}" alt="Snow" style="width:100%" width="150" height="200" onclick="myFunction(this);">
-    <figcaption>Building Muscle</figcaption>
+    </a>
+	<figcaption>Building Muscle</figcaption>
     </figure> 
   </div>
   <div class="column">
     <figure>
+	<a href="diet_selection_liquid">
 	<img src="{{ url_for('static', filename= 'images/' + 'liquids.jpg') }}" alt="Mountains" style="width:100%" width="150" height="200" onclick="myFunction(this);">
-    <figcaption>Liquid Diet</figcaption>
+    </a>
+	<figcaption>Liquid Diet</figcaption>
 	</figure>
   </div>
   <div class="column">
     <figure>
+	<a href="diet_selection_loss">
 	<img src="{{ url_for('static', filename= 'images/' + 'weight_loss.jpg') }}" alt="Lights" style="width:100%" width="150" height="200" onclick="myFunction(this);">
-    <figcaption>Losing Weight</figcaption>
+    </a>
+	<figcaption>Losing Weight</figcaption>
 	</figure>
   </div>
 </div>
+
+{%if render_recipes==True%}
+
+{%if render_options==1%}
+
+<p> Meatball Pasta <p>
+<p> Plain White Rice <p>
+<p> Garlic Bread <p>
+<p> Toasted Bagels <p>
+<p> Chips and Dip <p>
+
+{%endif%}
+
+{%if render_options==2%}
+<p> Prime Rib <p>
+<p> Porter House Steak <p>
+<p> Salmon <p>
+<p> Tuna Burgers <p>
+<p> Beef Jerky <p>
+{%endif%}
+
+{%if render_options==3%}
+<p> Chicken Soup <p>
+<p> Water <p>
+<p> Graepfruit <p>
+<p> Tomato Soup <p>
+<p> Lentil Soup <p>
+{%endif%}
+
+{%if render_options==4%}
+<p> Italian Salad <p>
+<p> Watermelon <p>
+<p> Celery Sticks <p>
+<p> Cabbage Stew <p>
+<p> Waldorf Salad <p>
+{%endif%}
+
+{%endif%}
+
 </center>
 </body>
 </html>

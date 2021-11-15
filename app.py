@@ -142,7 +142,34 @@ def recipes():
 
 @app.route("/diet_selection")
 def diets():
-    return render_template("diet_selection.html")
+    render_recipes = False
+    return render_template("diet_selection.html",render_recipes=render_recipes)
+
+@app.route("/diet_selection_carbs")
+def diets_carbs():
+    render_recipes = True
+    render_options = 1
+    return render_template("diet_selection.html",render_recipes=render_recipes,render_options=render_options)
+
+@app.route("/diet_selection_meat")
+def diets_meat():
+    render_recipes = True
+    render_options = 2
+    return render_template("diet_selection.html",render_recipes=render_recipes,render_options=render_options)
+
+@app.route("/diet_selection_liquid")
+def diets_liquid():
+    render_recipes = True
+    render_options = 3
+    return render_template("diet_selection.html",render_recipes=render_recipes,render_options=render_options)
+
+
+@app.route("/diet_selection_loss")
+def diets_loss():
+    render_recipes = True
+    render_options = 4
+    return render_template("diet_selection.html",render_recipes=render_recipes,render_options=render_options)
+
 
 @app.route("/signup")
 def signup():
