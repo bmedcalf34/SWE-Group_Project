@@ -134,7 +134,7 @@ def nutrition():
                 nutrients_unit = nutrients_unit,
                 len = len(nutrients),
      )
-
+# recipes endpoint
 @app.route("/recipes", methods=["GET", "POST"])
 def recipes():
     print('Recipes served')
