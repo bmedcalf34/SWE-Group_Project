@@ -2,10 +2,97 @@
 <html>
 <head>
   <title>Diets</title>
+  <style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial;
+}
+
+/* The grid: Four equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 25%;
+  padding: 10px;
+}
+
+/* Style the images inside the grid */
+.column img {
+  opacity: 0.8; 
+  cursor: pointer; 
+}
+
+.column img:hover {
+  opacity: 1;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* The expanding image container */
+.container {
+  position: relative;
+  display: none;
+}
+
+/* Expanding image text */
+#imgtext {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  color: white;
+  font-size: 20px;
+}
+
+/* Closable button inside the expanded image */
+.closebtn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: white;
+  font-size: 35px;
+  cursor: pointer;
+}
+  </style>
 </head>
 <body>
+<center>
+<h1>Pick Your Dietary Goal!</h1>
 
-<h1>This is the diets page</h1>
-
+<!-- The four columns -->
+<div class="row">
+  <div class="column">
+  <figure>
+    <img src="{{ url_for('static', filename= 'images/' + 'carbs.jpg') }}" alt="Nature" style="width:100%" width="150" height="200" onclick="myFunction(this);">
+  <figcaption>Hibernating for the Winter</figcaption>
+  </figure>
+  </div>
+  <div class="column">
+    <figure>
+	<img src="{{ url_for('static', filename= 'images/' + 'protein.jpg') }}" alt="Snow" style="width:100%" width="150" height="200" onclick="myFunction(this);">
+    <figcaption>Building Muscle</figcaption>
+    </figure> 
+  </div>
+  <div class="column">
+    <figure>
+	<img src="{{ url_for('static', filename= 'images/' + 'liquids.jpg') }}" alt="Mountains" style="width:100%" width="150" height="200" onclick="myFunction(this);">
+    <figcaption>Liquid Diet</figcaption>
+	</figure>
+  </div>
+  <div class="column">
+    <figure>
+	<img src="{{ url_for('static', filename= 'images/' + 'weight_loss.jpg') }}" alt="Lights" style="width:100%" width="150" height="200" onclick="myFunction(this);">
+    <figcaption>Losing Weight</figcaption>
+	</figure>
+  </div>
+</div>
+</center>
 </body>
 </html>
