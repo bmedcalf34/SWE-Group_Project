@@ -35,9 +35,11 @@
     <header>
       <h1>Nutritiona</h1>
     </header>
+	{%if login_status==True%}
     <div class="link-to-book-wrapper">
-      <a class="link-to-book" href="#reservations">Book a table</a>
+      <a class="link-to-book" href="#reservations">Welcome {{login_name}}</a>
     </div>
+	{%endif%}
   </section>
 
   <section class="about-section">
@@ -76,18 +78,19 @@
         <h3>
           Create an Account
         </h3>
-      <form class="media-centered">
+      <form class="media-centered" method="POST" action="/login">
           <div class="form-group">
             <p>
               Please sign up for our website to recieve health benefits and nutritional advice
             </p>
-            <input type="name" class="form-control" id="exampleInputName1" aria-describedby="nameHelp" placeholder="Enter your username">
+            <input type="name" class="form-control" name="username" aria-describedby="nameHelp" placeholder="Enter your username">
           </div>
           <div class="form-group">
-            <input type="number" class="form-control" id="exampleInputphoneNumber1" placeholder="Enter your email">
+            <input type="name" class="form-control" name="password" placeholder="Enter your password">
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
       </form>
+	   <a href={{ url_for('signup') }}>Sign Up</a>
       </div>
       <div class="opening-time">
         <h3>
