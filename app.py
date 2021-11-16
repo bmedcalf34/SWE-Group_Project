@@ -125,7 +125,6 @@ def nutrition():
     temp_var = SP_KEY
     api = sp.API(temp_var)
     
-
     # default food settings
 
     food = "chicken"
@@ -140,6 +139,7 @@ def nutrition():
 
     print(response)
     data = response.json()
+    
     print('Food type')
     print(food)
     print(data)
