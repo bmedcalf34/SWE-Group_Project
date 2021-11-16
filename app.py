@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Nov  9 21:10:10 2021
+
+@author: Maryam Botrus
+"""
 import flask
 from flask import Flask, request
 import requests
@@ -107,11 +113,12 @@ def nutrition():
          food_image = data[0]["image"]
     if amount == '':
         amount = 1
+    print(food_image)
     #find the nutrtion information using id and the amount
     response_for_nutrtition = api.get_food_information(f"{food_id}",amount)
     nutrition_data = response_for_nutrtition.json()
     nutrients = nutrition_data['nutrition']['nutrients']
-
+    food_url = 'https://spoonacular.com/cdn/ingredients_100x100/' + food_image
 
     #loop through and append nutrients data into 
     for i in range(len(nutrients)):
@@ -127,8 +134,9 @@ def nutrition():
                 nutrients_amount = nutrients_amount,
                 nutrients_unit = nutrients_unit,
                 len = len(nutrients),
+                food_url=food_url
      )
-
+# recipes endpoint
 @app.route("/recipes", methods=["GET", "POST"])
 def recipes():
     print('Recipes served')
@@ -217,49 +225,6 @@ def login_post():
 @app.route("/meals")
 def meal_search():
     return render_template("meal_search.html")
-
-
-
-
-
-#allows user to search recipe nutrition 
-@app.route("/recipe_nutrition")
-def recipe_nutrition():
-    recipe_nutrients_name = []
-    recipe_nutrients_amount = []
-    recipe_nutrients_unit = []
-    recipe_nutrients_Dailyneeds = []    
-
-        
-    if request.method == "POST":
-        recipe = request.form["recipe"]
-    
-    api = sp.API(os.getenv("API_KEY"))
-   
-    
-    
-    #find the nutrtion information using id and the amount
-    response_for_nutrtition = api.search_recipes_complex(f"{recipe}" , addRecipeNutrition=True,number=1)
-    nutrition_data = response_for_nutrtition.json()
-    recipe_image =  nutrition_data ['results'][0]['image']
-    recipe_id =  nutrition_data ['results'][0]['id']
-    nutrients = nutrition_data['results'][0]["nutrition"]["nutrients"]
-  
-    for i in range(len(nutrients)):
-        recipe_nutrients_name.append((nutrients[i]["name"]))
-        recipe_nutrients_amount.append((nutrients[i]["amount"]))
-        recipe_nutrients_unit.append((nutrients[i]["unit"]))
-        recipe_nutrients_Dailyneeds.append((nutrients[i]["percentOfDailyNeeds"]))
-
-
-
-
-    return render_template("recipe_nutrition.html", 
-        recipe_nutrients_name ,
-        recipe_nutrients_amount,
-        recipe_nutrients_unit ,
-        recipe_nutrients_Dailyneeds
-    )
 
 
 
