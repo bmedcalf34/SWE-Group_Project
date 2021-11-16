@@ -22,7 +22,6 @@ from flask_login import (
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 import requests
-=======
 # -*- coding: utf-8 -*-
 """
 Created on Tue Nov  9 21:10:10 2021
@@ -39,7 +38,7 @@ import time
 import spoonacular as sp
 from flask_login import UserMixin
 from flask_login import login_user, current_user, LoginManager
->>>>>>> main
+
 
 import dotenv
 import os
@@ -78,7 +77,7 @@ login_manager.login_view = "login"
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-=======
+
 SP_KEY = []
 try:
     DATABASE_URL = os.getenv("DATABASE_URL")
@@ -119,13 +118,12 @@ class User(UserMixin,db.Model):
 
 db.create_all()
 db.session.commit()
->>>>>>> main
+
 
 @app.route("/")
 @login_required
 def main_page():
     # serves the main page of the application
-<<<<<<< Shaunniel-Reid
     return render_template("index.html", user=session["user"])
 
 
@@ -192,11 +190,9 @@ tabulates food costs
 """
 
 
-=======
     return render_template("index.html",login_name="empty_user",login_status=False)
 
 
->>>>>>> main
 @app.route("/calculator")
 def food_costs():
     return render_template("calculator.html")
@@ -239,7 +235,6 @@ def recipe_nutrition():
     recipe_nutrients_Dailyneeds=recipe_nutrients_Dailyneeds
     )
 
-<<<<<<< Shaunniel-Reid
 @app.route("/my_recipes", methods=["GET", "POST"])
 @login_required
 def my_recipes():
@@ -484,7 +479,7 @@ def diet_selection_liquid():
         render_recipes=render_recipes,
         render_options=render_options,
     )
-=======
+
  #provides nutritional information on food options
  #consider building api logic in a seperate class 
 @app.route("/nutrition", methods=["GET", "POST"])
@@ -562,7 +557,7 @@ def recipes():
 def diets():
     render_recipes = False
     return render_template("diet_selection.html",render_recipes=render_recipes)
->>>>>>> main
+
 
 @app.route("/diet_selection_carbs")
 def diets_carbs():
@@ -570,7 +565,7 @@ def diets_carbs():
     render_options = 1
     return render_template("diet_selection.html",render_recipes=render_recipes,render_options=render_options)
 
-<<<<<<< Shaunniel-Reid
+
 @app.route("/diet_selection_loss")
 def diet_selection_loss():
     render_recipes = True
@@ -587,7 +582,7 @@ allows the user to search for different meal or food options
 """
 
 
-=======
+
 @app.route("/diet_selection_meat")
 def diets_meat():
     render_recipes = True
@@ -657,19 +652,16 @@ def login_post():
 
 
 #allows the user to search for different meal or food options
->>>>>>> main
+
 @app.route("/meals")
 def meal_search():
     return render_template("meal_search.html")
 
 
-<<<<<<< Shaunniel-Reid
-=======
 
 '''
 App Sign Up Code 
 '''
 
->>>>>>> main
 if __name__ == "__main__":
     app.run()
