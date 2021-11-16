@@ -113,11 +113,12 @@ def nutrition():
          food_image = data[0]["image"]
     if amount == '':
         amount = 1
+    print(food_image)
     #find the nutrtion information using id and the amount
     response_for_nutrtition = api.get_food_information(f"{food_id}",amount)
     nutrition_data = response_for_nutrtition.json()
     nutrients = nutrition_data['nutrition']['nutrients']
-
+    food_url = 'https://spoonacular.com/cdn/ingredients_100x100/' + food_image
 
     #loop through and append nutrients data into 
     for i in range(len(nutrients)):
@@ -133,6 +134,7 @@ def nutrition():
                 nutrients_amount = nutrients_amount,
                 nutrients_unit = nutrients_unit,
                 len = len(nutrients),
+                food_url=food_url
      )
 # recipes endpoint
 @app.route("/recipes", methods=["GET", "POST"])
