@@ -3,6 +3,7 @@
 Created on Tue Nov  9 21:10:10 2021
 
 @author: Maryam Botrus
+Able Saw
 """
 import flask
 from flask import Flask, request
@@ -75,6 +76,43 @@ def main_page():
 def food_costs():
     return render_template("calculator.html")
 
+@app.route("/recipe_nutrition", methods=["GET", "POST"])
+def recipe_nutrition():
+    recipe_nutrients_name = []
+    recipe_nutrients_amount = []
+    recipe_nutrients_unit = []
+    recipe_nutrients_Dailyneeds = []
+    nutrients = []
+    temp_var = SP_KEY
+    api = sp.API(temp_var)
+    display_nutrients = False 
+    
+    if request.method == "POST":
+        display_nutrients=True
+        print('Checking Form Data')
+        food = request.form["recipe"]
+        print(food)
+        response_for_nutrtition = api.search_recipes_complex(
+            f"{food}", addRecipeNutrition=True, number=1
+        )
+        nutrition_data = response_for_nutrtition.json()
+        recipe_image = nutrition_data["results"][0]["image"]
+        recipe_id = nutrition_data["results"][0]["id"]
+        nutrients = nutrition_data["results"][0]["nutrition"]["nutrients"]
+        for i in range(len(nutrients)):
+            recipe_nutrients_name.append((nutrients[i]["name"]))
+            recipe_nutrients_amount.append((nutrients[i]["amount"]))
+            recipe_nutrients_unit.append((nutrients[i]["unit"]))
+            recipe_nutrients_Dailyneeds.append((nutrients[i]["percentOfDailyNeeds"]))
+    
+    return render_template("recipe_nutrition.html",
+    len = len(nutrients),
+    display_nutrients =display_nutrients,
+    recipe_nutrient_name = recipe_nutrients_name ,
+    recipe_nutrients_amount=recipe_nutrients_amount, 
+    recipe_nutrients_unit=recipe_nutrients_unit,
+    recipe_nutrients_Dailyneeds=recipe_nutrients_Dailyneeds
+    )
 
  #provides nutritional information on food options
  #consider building api logic in a seperate class 
@@ -87,6 +125,9 @@ def nutrition():
     temp_var = SP_KEY
     api = sp.API(temp_var)
     
+
+    # default food settings
+
     food = "chicken"
     amount = 1
         
@@ -96,11 +137,13 @@ def nutrition():
     
     # find the ingredient id 
     response = api.autocomplete_ingredient_search(f"{food}", number=1,metaInformation =True)
+
     print(response)
     data = response.json()
     print('Food type')
     print(food)
     print(data)
+    
     try:
         food_id = data[0]["id"]
         food_image = data[0]["image"]
@@ -113,6 +156,7 @@ def nutrition():
          food_image = data[0]["image"]
     if amount == '':
         amount = 1
+
     print(food_image)
     #find the nutrtion information using id and the amount
     response_for_nutrtition = api.get_food_information(f"{food_id}",amount)
@@ -126,6 +170,7 @@ def nutrition():
         nutrients_amount.append((nutrients[i]['amount']))
         nutrients_unit.append((nutrients[i]['unit']))
 
+    # debug output
     print(nutrients)
 
     return render_template("nutrition.html",
