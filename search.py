@@ -17,3 +17,6 @@ def recipe_search():
         recipe_id = data[i]["id"]
         pprint(recipe_name, recipe_id)
     return recipe_name, recipe_id
+
+
+recipe_search()
