@@ -34,3 +34,11 @@ Michael then adds the macros in his excel spreadsheet and calculates his vitamin
 With his new found knowledge in hand Michael was able to better track his macros and win the United States gold at the Olympics.
 
 This user story consists of the app.route("/nutrition") method from app.py along with the nutrition.html document and several lines of code on the main page that enable Michael to navigate through
+
+<em> User Story III </em>
+
+Implemented by ...
+
+<em> User Story IV </em>
+
+Implemented by ...
