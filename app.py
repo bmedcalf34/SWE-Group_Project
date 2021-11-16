@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Nov  9 21:10:10 2021
-
-@author: Maryam Botrus
-Able Saw
-"""
 import flask
 from flask import Flask
 from jinja2.utils import F
@@ -48,18 +41,11 @@ import time
 import spoonacular as sp
 from flask_login import UserMixin
 from flask_login import login_user, current_user, LoginManager
+
 import dotenv
 import os
 
 dotenv.load_dotenv(dotenv.find_dotenv())
-
-if os.sys.platform == "win32":
-    time.clock = time.time
-else:
-    _timer = time.time
-from flask_sqlalchemy import SQLAlchemy
-
-from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config[
@@ -125,11 +111,11 @@ class User(UserMixin,db.Model):
 db.create_all()
 db.session.commit()
 
-
 @app.route("/")
 @login_required
 def main_page():
     # serves the main page of the application
+
     return render_template("index.html", user=session["user"])
 
 
@@ -236,47 +222,11 @@ tabulates food costs
 
 
 
+
 @app.route("/calculator")
 def food_costs():
     return render_template("calculator.html")
 
-@app.route("/recipe_nutrition", methods=["GET", "POST"])
-def recipe_nutrition():
-    recipe_nutrients_name = []
-    recipe_nutrients_amount = []
-    recipe_nutrients_unit = []
-    recipe_nutrients_Dailyneeds = []
-    nutrients = []
-    temp_var = SP_KEY
-    api = sp.API(temp_var)
-    display_nutrients = False 
-    
-    if request.method == "POST":
-        display_nutrients=True
-        print('Checking Form Data')
-        food = request.form["recipe"]
-        print(food)
-        response_for_nutrtition = api.search_recipes_complex(
-            f"{food}", addRecipeNutrition=True, number=1
-        )
-        nutrition_data = response_for_nutrtition.json()
-        recipe_image = nutrition_data["results"][0]["image"]
-        recipe_id = nutrition_data["results"][0]["id"]
-        nutrients = nutrition_data["results"][0]["nutrition"]["nutrients"]
-        for i in range(len(nutrients)):
-            recipe_nutrients_name.append((nutrients[i]["name"]))
-            recipe_nutrients_amount.append((nutrients[i]["amount"]))
-            recipe_nutrients_unit.append((nutrients[i]["unit"]))
-            recipe_nutrients_Dailyneeds.append((nutrients[i]["percentOfDailyNeeds"]))
-    
-    return render_template("recipe_nutrition.html",
-    len = len(nutrients),
-    display_nutrients =display_nutrients,
-    recipe_nutrient_name = recipe_nutrients_name ,
-    recipe_nutrients_amount=recipe_nutrients_amount, 
-    recipe_nutrients_unit=recipe_nutrients_unit,
-    recipe_nutrients_Dailyneeds=recipe_nutrients_Dailyneeds
-    )
 
 
 @app.route("/my_recipes", methods=["GET", "POST"])
@@ -762,6 +712,7 @@ def diet_selection_liquid():
         render_recipes=render_recipes,
         render_options=render_options,
     )
+
  #provides nutritional information on food options
  #consider building api logic in a seperate class 
 @app.route("/nutrition", methods=["GET", "POST"])
@@ -775,42 +726,8 @@ def nutrition():
     
     # default food settings
 
-    food = "chicken"
-    amount = 1
-        
-    if request.method == "POST":
-        food = request.form["ingredients"]
-        amount = request.form["amount"]
-    
-    # find the ingredient id 
-    response = api.autocomplete_ingredient_search(f"{food}", number=1,metaInformation =True)
 
-    print(response)
-    data = response.json()
-    
-    print('Food type')
-    print(food)
-    print(data)
-    
-    try:
-        food_id = data[0]["id"]
-        food_image = data[0]["image"]
-    except:
-         food = "chicken"
-         amount = 1
-         response = api.autocomplete_ingredient_search(f"{food}", number=1,metaInformation =True)
-         data = response.json()
-         food_id = data[0]["id"]
-         food_image = data[0]["image"]
-    if amount == '':
-        amount = 1
 
-    print(food_image)
-    #find the nutrtion information using id and the amount
-    response_for_nutrtition = api.get_food_information(f"{food_id}",amount)
-    nutrition_data = response_for_nutrtition.json()
-    nutrients = nutrition_data['nutrition']['nutrients']
-    food_url = 'https://spoonacular.com/cdn/ingredients_100x100/' + food_image
 
     #loop through and append nutrients data into 
     for i in range(len(nutrients)):
@@ -848,6 +765,7 @@ def diets_carbs():
     return render_template("diet_selection.html",render_recipes=render_recipes,render_options=render_options)
 
 
+
 @app.route("/diet_selection_loss")
 def diet_selection_loss():
     render_recipes = True
@@ -862,7 +780,6 @@ def diet_selection_loss():
 """
 allows the user to search for different meal or food options
 """
-
 
 
 @app.route("/diet_selection_meat")
@@ -935,6 +852,7 @@ def login_post():
 
 #allows the user to search for different meal or food options
 
+
 @app.route("/meals")
 def meal_search():
     return render_template("meal_search.html")
@@ -944,6 +862,7 @@ def meal_search():
 '''
 App Sign Up Code 
 '''
+
 
 
 if __name__ == "__main__":
