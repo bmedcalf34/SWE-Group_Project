@@ -17,9 +17,21 @@
   <nav>
     <ul class="nav-flex-row">
       <li class="nav-item">
-        <a href="#about">About</a>
+        <a href="{{ url_for('main_page') }}">Home</a>
       </li>
       <li class="nav-item">
+
+        <a href="{{ url_for('nutrition') }}">Nutrition</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url_for('diet_selection') }}">Diet Selection</a>
+      </li>
+      <li class="nav-item" >
+        <a class="nav-item" href="{{ url_for('my_recipes') }}">My Recipes</a>
+      </li>
+      <li class="nav-item" >
+        <a class="nav-item" href="{{ url_for('logout') }}">Log Out</a>
+
         <a href="recipes">Recipes</a>
       </li>
       <li class="nav-item">
@@ -40,6 +52,23 @@
     </header>
 	{%if login_status==True%}
     <div class="link-to-book-wrapper">
+
+      <form action="{{ url_for('recipes') }}" method="post">
+        <input name="search" type="text" placeholder="Search for a recipe!">
+        <select name="filter_by" id="">
+          <option>Filter by</option>
+          <option>Calories</option>
+          <option>Protein</option>
+          <option>Carbs</option>
+          <option>Fat</option>
+        </select>
+        <input type="number" name="minVal" placeholder="Enter Min Value in grams">
+        <input type="number" name="maxVal" placeholder="Enter Max Value in grams">
+        <button type="submit">Search</button>
+      </form>
+    </div>
+    <a class="link-to-book" href="#reservations">Book a table</a>
+
       <a class="link-to-book" href="#reservations">Welcome {{login_name}}</a>
     </div>
 	{%endif%}
@@ -77,6 +106,7 @@
 
   <div class="container">
     <div class="row-flex">
+
       <div class="flex-column-form">
         <h3>
           Create an Account
@@ -112,7 +142,7 @@
         <p>
           <span>Team 7</span>
           <span>GSU Software Engineering</span>
-          <span> maryambotrus@gmail.com</span>
+          
         </p>
       </div>
     </div>

@@ -37,6 +37,12 @@ This user story consists of the app.route("/nutrition") method from app.py along
 
 <em> User Story III </em>
 
+Implemented by ...
+
+<em> User Story IV </em>
+
+Implemented by ...
+
 Implemented by Ben Medcalf
 
 Stephen wants to get better at cooking from home so that he can eat out less and save money. He doesn't have a great idea how to start so he navigates to the Nutritiona app. From the main page, he is able to login or sign up to a new account so that he can save recipes that he likes. In order to find some recipes, Stephen goes to the "Recipes" section of the app. From here, he can enter an ingredient and an amount of recipes he would like to see. 
