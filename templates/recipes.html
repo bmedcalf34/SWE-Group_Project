@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Recipes</title>
+  <title>Recipes</title>
 </head>
 <body>
 <center>
@@ -11,18 +11,13 @@
   </h2>
 <form action="/nutrition" method = "post">
       <div class="input-group mb-3" style="max-width: 50%;">
-          <input type="text" class="form-control" placeholder="Apple, carrot, potato" aria-label="Ingredients" aria-describedby="button-addon2" name="my_recipes">
+          <input type="text" class="form-control" placeholder="Apple, carrot, potato" aria-label="Ingredients" aria-describedby="button-addon2" name="ingredients">
+		  <input type="text" class="form-control" placeholder="2" aria-label="Ingredients" aria-describedby="button-addon2" name="amount">
           <div class="input-group-append">
               <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
           </div>          
       </div>
   </form>
-  
-  {%if display_recipes==True%}
-  
-  <p> Your curated recipes are: </p>
-  
-  {%endif%}
   
 </center>
 </body>
