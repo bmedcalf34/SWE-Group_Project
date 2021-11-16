@@ -3,6 +3,7 @@
 Created on Tue Nov  9 21:10:10 2021
 
 @author: Maryam Botrus
+Able Saw
 """
 import flask
 from flask import Flask, request
@@ -125,6 +126,7 @@ def nutrition():
     api = sp.API(temp_var)
     
     # default food settings
+
     food = "chicken"
     amount = 1
         
@@ -134,7 +136,7 @@ def nutrition():
     
     # find the ingredient id 
     response = api.autocomplete_ingredient_search(f"{food}", number=1,metaInformation =True)
-    
+
     print(response)
     data = response.json()
     
@@ -154,7 +156,7 @@ def nutrition():
          food_image = data[0]["image"]
     if amount == '':
         amount = 1
-        
+
     print(food_image)
     #find the nutrtion information using id and the amount
     response_for_nutrtition = api.get_food_information(f"{food_id}",amount)
@@ -167,7 +169,7 @@ def nutrition():
         nutrients_name.append((nutrients[i]['name']))
         nutrients_amount.append((nutrients[i]['amount']))
         nutrients_unit.append((nutrients[i]['unit']))
-    
+
     # debug output
     print(nutrients)
 

@@ -19,11 +19,12 @@
   </form>
   
 {%if display_nutrients==True%}
+{%for i in range(0, len)%} 
   
-  {%for i in range(0, len)%} 
 <p> {{recipe_nutrient_name[i]}}  {{ recipe_nutrients_amount[i]}} {{recipe_nutrients_unit[i] }} Percentage of Daily needs = {{recipe_nutrients_Dailyneeds[i]}}%  </p>
+  
 {%endfor%}
-
 {%endif%}
+  
 </center>
 </body>
