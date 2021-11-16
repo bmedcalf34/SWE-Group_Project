@@ -10,7 +10,7 @@ Please see our repository's requirements.txt for a list of update python librari
 
 <strong> User Stories Sprint I </strong>
 
-User Story I
+<em> User Story I </em>
 
 Implemented by Maryam Botrus
 
@@ -24,7 +24,7 @@ From this Joe can get suggested meals from either the water weight or lose weigh
 Joe is happy with our application and goes on to lose 100 lbs from his new water diet. He also develops acute malnutrition as our diet recommendations are not the best.
 This functionality encompasses over 300 lines of code across signup.html, login.html, index.html the required database code in app.py and the diet selection and diet_selection.html screens.
 
-User Story II
+<em> User Story II </em>
 
 Implemented by Maryam Botrus
 
