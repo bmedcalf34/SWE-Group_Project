@@ -42,19 +42,17 @@ try:
 except:
     print("No env file found")
 
-app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
+app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 # Gets rid of a warning
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
 
-"""
+'''
 Data Base Import 
-"""
-
-
-class User(UserMixin, db.Model):
+'''
+class User(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(80), unique=True, nullable=False)
@@ -65,71 +63,63 @@ class User(UserMixin, db.Model):
     def get_username(self):
         return self.username
 
-
 db.create_all()
 db.session.commit()
-
 
 @app.route("/")
 def main_page():
     # serves the main page of the application
-    return render_template("index.html", login_name="empty_user", login_status=False)
+    return render_template("index.html",login_name="empty_user",login_status=False)
 
 
 @app.route("/calculator")
 def food_costs():
-
     return render_template("calculator.html")
 
-
-@app.rout("/recipe_by_ingredients", methods=["GET", "POST"])
+@app.route("/recipe_by_ingredient", methods=["GET", "POST"])
 def recipe_by_ingredient():
     ingredients_used = []
     ingredients_missing = []
+    recipe_image = []
+    recipe_info = []
     temp_var = SP_KEY
     api = sp.API(temp_var)
-    display_nutrients = False
+    display = False
 
-    food = "apple,flour,egg,sugar"
-
+   
     if request.method == "POST":
-        display_nutrients = True
-
         food = request.form["recipe"]
+        response_for_nutrtition = api.search_recipes_by_ingredients(
+            f"{food}", number=1, ranking=2
+        )
+
+        nutrition_data = response_for_nutrtition.json()
+        recipe_info = nutrition_data[0]
+        recipe_info = nutrition_data[0]
+        recipe_image = nutrition_data[0]["image"]
+       
+    
+        # loop through and save recipe info if any ingredients are used or missed
+        if nutrition_data[0]["missedIngredientCount"] > 0:
+            for i in range(nutrition_data[0]["missedIngredientCount"]):
+                ingredients_missing.append(
+                    recipe_info["missedIngredients"][i]["originalString"]
+                )
+        if nutrition_data[0]["usedIngredientCount"] > 0:
+            for i in range(nutrition_data[0]["usedIngredientCount"]):
+                ingredients_used.append(recipe_info["usedIngredients"][i]["originalString"])
 
 
-    # find the nutrtion information using id and the amount
-    response_for_nutrtition = api.search_recipes_by_ingredients(
-        f"{food}", number=1, ranking=2
-    )
-
-    nutrition_data = response_for_nutrtition.json()
-    recipe_info = nutrition_data[0]
-    number_of_like = nutrition_data[0]["likes"]
-    recipe_name = nutrition_data[0]["title"]
-    recipe_image = nutrition_data[0]["image"]
-
-    # loop through and save recipe info if any ingredients are used or missed
-    if nutrition_data[0]["missedIngredientCount"] > 0:
-        for i in range(nutrition_data[0]["missedIngredientCount"]):
-            ingredients_missing.append(
-                recipe_info["missedIngredients"][i]["originalString"]
-            )
-    if nutrition_data[0]["usedIngredientCount"] > 0:
-        for i in range(nutrition_data[0]["usedIngredientCount"]):
-            ingredients_used.append(recipe_info["usedIngredients"][i]["originalString"])
-
-    print(nutrition_data)
-    print(ingredients_used)
     return render_template(
         "recipe_by_ingredient.html",
         food_url=recipe_image,
-        display_nutrients=display_nutrients,
         ingredients_used=ingredients_used,
         ingredients_missing=ingredients_missing,
         recipe_info=recipe_info,
+        display=display,
+        lenMissing = len(ingredients_missing),
+        lenUsed = len(ingredients_used)
     )
-
 
 @app.route("/recipe_nutrition", methods=["GET", "POST"])
 def recipe_nutrition():
@@ -140,13 +130,13 @@ def recipe_nutrition():
     nutrients = []
     temp_var = SP_KEY
     api = sp.API(temp_var)
-    display_nutrients = False
-
+    display_nutrients = False 
+    
     if request.method == "POST":
-        display_nutrients = True
-
+        display_nutrients=True
+        print('Checking Form Data')
         food = request.form["recipe"]
-
+        print(food)
         response_for_nutrtition = api.search_recipes_complex(
             f"{food}", addRecipeNutrition=True, number=1
         )
@@ -159,147 +149,117 @@ def recipe_nutrition():
             recipe_nutrients_amount.append((nutrients[i]["amount"]))
             recipe_nutrients_unit.append((nutrients[i]["unit"]))
             recipe_nutrients_Dailyneeds.append((nutrients[i]["percentOfDailyNeeds"]))
-
-    return render_template(
-        "recipe_nutrition.html",
-        len=len(nutrients),
-        food_url=recipe_image,
-        display_nutrients=display_nutrients,
-        recipe_nutrient_name=recipe_nutrients_name,
-        recipe_nutrients_amount=recipe_nutrients_amount,
-        recipe_nutrients_unit=recipe_nutrients_unit,
-        recipe_nutrients_Dailyneeds=recipe_nutrients_Dailyneeds,
+    
+    return render_template("recipe_nutrition.html",
+    len = len(nutrients),
+    display_nutrients =display_nutrients,
+    recipe_nutrient_name = recipe_nutrients_name ,
+    recipe_nutrients_amount=recipe_nutrients_amount, 
+    recipe_nutrients_unit=recipe_nutrients_unit,
+    recipe_nutrients_Dailyneeds=recipe_nutrients_Dailyneeds
     )
 
-
-# provides nutritional information on food options
-# consider building api logic in a seperate class
+ #provides nutritional information on food options
+ #consider building api logic in a seperate class 
 @app.route("/nutrition", methods=["GET", "POST"])
 def nutrition():
-    # return render_template("nutrition.html")
+    #return render_template("nutrition.html")
     nutrients_name = []
     nutrients_amount = []
     nutrients_unit = []
     temp_var = SP_KEY
     api = sp.API(temp_var)
-
+    
     # default food settings
-
     food = "chicken"
     amount = 1
-
+        
     if request.method == "POST":
         food = request.form["ingredients"]
         amount = request.form["amount"]
-
-    # find the ingredient id
-    response = api.autocomplete_ingredient_search(
-        f"{food}", number=1, metaInformation=True
-    )
-
+    
+    # find the ingredient id 
+    response = api.autocomplete_ingredient_search(f"{food}", number=1,metaInformation =True)
+    
     print(response)
     data = response.json()
-    print("Food type")
+    
+    print('Food type')
     print(food)
     print(data)
-
+    
     try:
         food_id = data[0]["id"]
         food_image = data[0]["image"]
     except:
-        food = "chicken"
+         food = "chicken"
+         amount = 1
+         response = api.autocomplete_ingredient_search(f"{food}", number=1,metaInformation =True)
+         data = response.json()
+         food_id = data[0]["id"]
+         food_image = data[0]["image"]
+    if amount == '':
         amount = 1
-        response = api.autocomplete_ingredient_search(
-            f"{food}", number=1, metaInformation=True
-        )
-        data = response.json()
-        food_id = data[0]["id"]
-        food_image = data[0]["image"]
-    if amount == "":
-        amount = 1
-
+        
     print(food_image)
-    # find the nutrtion information using id and the amount
-    response_for_nutrtition = api.get_food_information(f"{food_id}", amount)
+    #find the nutrtion information using id and the amount
+    response_for_nutrtition = api.get_food_information(f"{food_id}",amount)
     nutrition_data = response_for_nutrtition.json()
-    nutrients = nutrition_data["nutrition"]["nutrients"]
-    food_url = "https://spoonacular.com/cdn/ingredients_100x100/" + food_image
+    nutrients = nutrition_data['nutrition']['nutrients']
+    food_url = 'https://spoonacular.com/cdn/ingredients_100x100/' + food_image
 
-    # loop through and append nutrients data into
+    #loop through and append nutrients data into 
     for i in range(len(nutrients)):
-        nutrients_name.append((nutrients[i]["name"]))
-        nutrients_amount.append((nutrients[i]["amount"]))
-        nutrients_unit.append((nutrients[i]["unit"]))
-
+        nutrients_name.append((nutrients[i]['name']))
+        nutrients_amount.append((nutrients[i]['amount']))
+        nutrients_unit.append((nutrients[i]['unit']))
+    
     # debug output
     print(nutrients)
 
-    return render_template(
-        "nutrition.html",
-        data=data[0],
-        nutrient_name=nutrients_name,
-        nutrients_amount=nutrients_amount,
-        nutrients_unit=nutrients_unit,
-        len=len(nutrients),
-        food_url=food_url,
-    )
-
-
+    return render_template("nutrition.html",
+                data = data[0],
+                nutrient_name = nutrients_name,
+                nutrients_amount = nutrients_amount,
+                nutrients_unit = nutrients_unit,
+                len = len(nutrients),
+                food_url=food_url
+     )
 # recipes endpoint
 @app.route("/recipes", methods=["GET", "POST"])
 def recipes():
-    print("Recipes served")
+    print('Recipes served')
     return render_template("recipes.html")
-
 
 @app.route("/diet_selection")
 def diets():
     render_recipes = False
-    return render_template("diet_selection.html", render_recipes=render_recipes)
-
+    return render_template("diet_selection.html",render_recipes=render_recipes)
 
 @app.route("/diet_selection_carbs")
 def diets_carbs():
     render_recipes = True
     render_options = 1
-    return render_template(
-        "diet_selection.html",
-        render_recipes=render_recipes,
-        render_options=render_options,
-    )
-
+    return render_template("diet_selection.html",render_recipes=render_recipes,render_options=render_options)
 
 @app.route("/diet_selection_meat")
 def diets_meat():
     render_recipes = True
     render_options = 2
-    return render_template(
-        "diet_selection.html",
-        render_recipes=render_recipes,
-        render_options=render_options,
-    )
-
+    return render_template("diet_selection.html",render_recipes=render_recipes,render_options=render_options)
 
 @app.route("/diet_selection_liquid")
 def diets_liquid():
     render_recipes = True
     render_options = 3
-    return render_template(
-        "diet_selection.html",
-        render_recipes=render_recipes,
-        render_options=render_options,
-    )
+    return render_template("diet_selection.html",render_recipes=render_recipes,render_options=render_options)
 
 
 @app.route("/diet_selection_loss")
 def diets_loss():
     render_recipes = True
     render_options = 4
-    return render_template(
-        "diet_selection.html",
-        render_recipes=render_recipes,
-        render_options=render_options,
-    )
+    return render_template("diet_selection.html",render_recipes=render_recipes,render_options=render_options)
 
 
 @app.route("/signup")
@@ -309,7 +269,8 @@ def signup():
 
 @app.route("/signup", methods=["POST"])
 def signup_post():
-
+    
+    
     if request.method == "POST":
         username = flask.request.form.get("username")
         password = flask.request.form.get("password")
@@ -321,7 +282,7 @@ def signup_post():
             db.session.add(user)
             db.session.commit()
 
-    return render_template("index.html", login_name=user.username, login_status=True)
+    return render_template("index.html",login_name=user.username,login_status=True)
 
 
 @app.route("/login")
@@ -332,32 +293,33 @@ def login():
 @app.route("/login", methods=["POST"])
 def login_post():
     username = flask.request.form.get("username")
+    print(username)
     password = flask.request.form.get("password")
-
+    print(password)
     users = User.query.filter_by(username=username).all()
     condition = False
     for user in users:
-
-        if user.password == password:
-            condition = True
-
+        print(user.username)
+        print(user.password)
+        if(user.password==password):
+            condition=True
+    print(condition)
     if condition:
-        return render_template(
-            "index.html", login_name=user.username, login_status=True
-        )
+        return render_template("index.html",login_name=user.username,login_status=True)
     else:
         return flask.jsonify({"status": 401, "reason": "Username or Password Error"})
 
 
-# allows the user to search for different meal or food options
+#allows the user to search for different meal or food options
 @app.route("/meals")
 def meal_search():
     return render_template("meal_search.html")
 
 
-"""
+
+'''
 App Sign Up Code 
-"""
+'''
 
 if __name__ == "__main__":
     app.run()

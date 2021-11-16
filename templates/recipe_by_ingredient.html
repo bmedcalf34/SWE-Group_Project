@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Recipes</title>
+    <title>Recipes by Ingredient</title>
 </head>
 
 <body>
@@ -11,7 +11,7 @@
         <h2 style="padding-top: 3%;">
             Looking to find recipes based on ingredients? Lets see what you can look up <br>
         </h2>
-        <form action="/recipe_nutrition" method="post">
+        <form action="/recipe_by_ingredient" method="post">
             <div class="input-group mb-3" style="max-width: 50%;">
                 <input type="text" class="form-control" placeholder="Apple, carrot, potato" aria-label="Ingredients"
                     aria-describedby="button-addon2" name="recipe">
@@ -20,20 +20,20 @@
                 </div>
             </div>
         </form>
-        <img src="{{food_url}}" class="d-block w-100" alt="food">
-        {%if display_nutrients==True%}
-        Recipe Name {{recipe_info['title']}} Ingredient Missing : {{recipe_info['missedIngredientCount']}} Ingredients Used : {{recipe_info['UsedIngredientCount']}}
-
-
-        {%for i in range(0, recipe_info['missedIngredientCount'])%}
+        <img src="{{food_url}}" class="d-block w-100" alt="food" height= 100 width = 100>
+		
+		
+		
+		Recipe Name {{recipe_info['title']}} Ingredient Missing : {{recipe_info['missedIngredientCount']}} Ingredients Used : {{recipe_info['UsedIngredientCount']}}
+		Number of Likes: {{recipe_info['likes']}}
+		
+		
+		{%for i in range(0,lenMissing)%}
         <p> Ingredient Missing : {{ingredients_missing[i]}}  </p>
         {%endfor%}
 
-        {%for i in range(0, recipe_info['UsedIngredientCount'])%}
+
+        {%for i in range(0, lenUsed)%}
         <p> Ingredients Used : {{ ingredients_used[i]}}  </p>
         {%endfor%}
-        Number of Likes: {{recipe_info['likes']}}
-    </center>
-
-</body>
-</html>
+		
