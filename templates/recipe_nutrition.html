@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Recipes</title>
+</head>
+<body>
+<center>
+<h1>This is the recipes nutrition page</h1>
+<h2 style="padding-top: 3%;">
+      Looking to find nutrition for recipes? Lets see what you can look up <br>
+  </h2>
+<form action="/recipe_nutrition" method = "post">
+      <div class="input-group mb-3" style="max-width: 50%;">
+          <input type="text" class="form-control" placeholder="Apple, carrot, potato" aria-label="Ingredients" aria-describedby="button-addon2" name="recipe">
+		  <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+          </div>          
+      </div>
+  </form>
+  
+{%if display_nutrients==True%}
+{%for i in range(0, len)%} 
+  
+<p> {{recipe_nutrient_name[i]}}  {{ recipe_nutrients_amount[i]}} {{recipe_nutrients_unit[i] }} Percentage of Daily needs = {{recipe_nutrients_Dailyneeds[i]}}%  </p>
+  
+{%endfor%}
+{%endif%}
+  
+</center>
+</body>

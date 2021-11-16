@@ -210,3 +210,146 @@
     </center>
   </body>
 </html>
+<head>
+  <title>Diets</title>
+  <style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial;
+}
+
+/* The grid: Four equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 25%;
+  padding: 10px;
+}
+
+/* Style the images inside the grid */
+.column img {
+  opacity: 0.8; 
+  cursor: pointer; 
+}
+
+.column img:hover {
+  opacity: 1;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* The expanding image container */
+.container {
+  position: relative;
+  display: none;
+}
+
+/* Expanding image text */
+#imgtext {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  color: white;
+  font-size: 20px;
+}
+
+/* Closable button inside the expanded image */
+.closebtn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: white;
+  font-size: 35px;
+  cursor: pointer;
+}
+  </style>
+</head>
+<body>
+<center>
+<h1>Pick Your Dietary Goal!</h1>
+
+<!-- The four columns -->
+<div class="row">
+  <div class="column">
+  <figure>
+   <a href="diet_selection_carbs">
+    <img src="{{ url_for('static', filename= 'images/' + 'carbs.jpg') }}" alt="Nature" style="width:100%" width="150" height="200" onclick="myFunction(this);">
+  </a>
+  <figcaption>Hibernating for the Winter</figcaption>
+  </figure>
+  </div>
+  <div class="column">
+    <figure>
+	<a href="diet_selection_meat">
+	<img src="{{ url_for('static', filename= 'images/' + 'protein.jpg') }}" alt="Snow" style="width:100%" width="150" height="200" onclick="myFunction(this);">
+    </a>
+	<figcaption>Building Muscle</figcaption>
+    </figure> 
+  </div>
+  <div class="column">
+    <figure>
+	<a href="diet_selection_liquid">
+	<img src="{{ url_for('static', filename= 'images/' + 'liquids.jpg') }}" alt="Mountains" style="width:100%" width="150" height="200" onclick="myFunction(this);">
+    </a>
+	<figcaption>Liquid Diet</figcaption>
+	</figure>
+  </div>
+  <div class="column">
+    <figure>
+	<a href="diet_selection_loss">
+	<img src="{{ url_for('static', filename= 'images/' + 'weight_loss.jpg') }}" alt="Lights" style="width:100%" width="150" height="200" onclick="myFunction(this);">
+    </a>
+	<figcaption>Losing Weight</figcaption>
+	</figure>
+  </div>
+</div>
+
+{%if render_recipes==True%}
+
+{%if render_options==1%}
+
+<p> Meatball Pasta <p>
+<p> Plain White Rice <p>
+<p> Garlic Bread <p>
+<p> Toasted Bagels <p>
+<p> Chips and Dip <p>
+
+{%endif%}
+
+{%if render_options==2%}
+<p> Prime Rib <p>
+<p> Porter House Steak <p>
+<p> Salmon <p>
+<p> Tuna Burgers <p>
+<p> Beef Jerky <p>
+{%endif%}
+
+{%if render_options==3%}
+<p> Chicken Soup <p>
+<p> Water <p>
+<p> Graepfruit <p>
+<p> Tomato Soup <p>
+<p> Lentil Soup <p>
+{%endif%}
+
+{%if render_options==4%}
+<p> Italian Salad <p>
+<p> Watermelon <p>
+<p> Celery Sticks <p>
+<p> Cabbage Stew <p>
+<p> Waldorf Salad <p>
+{%endif%}
+
+{%endif%}
+
+</center>
+</body>
+</html>
