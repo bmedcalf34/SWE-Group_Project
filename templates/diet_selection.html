@@ -1,11 +1,212 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Diets</title>
-</head>
-<body>
+  <head>
+    <title>Diets</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='index.css')}}" />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
 
-<h1>This is the diets page</h1>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
 
-</body>
+      body {
+        margin: 0;
+        font-family: Arial;
+      }
+      nav {
+        min-height: 8vh;
+      }
+
+      /* The grid: Four equal columns that floats next to each other */
+      .column {
+        float: left;
+        width: 25%;
+        padding: 10px;
+      }
+
+      /* Style the images inside the grid */
+      .column img {
+        opacity: 0.8;
+        cursor: pointer;
+      }
+
+      .column img:hover {
+        opacity: 1;
+      }
+
+      /* Clear floats after the columns */
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+
+      /* The expanding image container */
+      .container {
+        position: relative;
+        display: none;
+      }
+
+      /* Expanding image text */
+      #imgtext {
+        position: absolute;
+        bottom: 15px;
+        left: 15px;
+        color: white;
+        font-size: 20px;
+      }
+
+      /* Closable button inside the expanded image */
+      .closebtn {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        color: white;
+        font-size: 35px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <ul class="nav-flex-row">
+        <li class="nav-item">
+          <a href="{{ url_for('main_page') }}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url_for('nutrition') }}">Nutrition</a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url_for('diet_selection') }}">Diet Selection</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-item" href="{{ url_for('my_recipes') }}">My Recipes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-item" href="{{ url_for('logout') }}">Log Out</a>
+        </li>
+      </ul>
+    </nav>
+    
+    <center>
+      <h1>Pick Your Dietary Goal!</h1>
+
+      <!-- The four columns -->
+      <div class="row">
+        <div class="column">
+          <figure>
+            <a href="diet_selection_carbs">
+              <img
+                src="{{ url_for('static', filename= 'images/' + 'carbs.jpg') }}"
+                alt="Nature"
+                style="width: 100%"
+                width="150"
+                height="200"
+                onclick="myFunction(this);"
+              />
+            </a>
+            <figcaption>Hibernating for the Winter</figcaption>
+          </figure>
+        </div>
+        <div class="column">
+          <figure>
+            <a href="diet_selection_meat">
+              <img
+                src="{{ url_for('static', filename= 'images/' + 'protein.jpg') }}"
+                alt="Snow"
+                style="width: 100%"
+                width="150"
+                height="200"
+                onclick="myFunction(this);"
+              />
+            </a>
+            <figcaption>Building Muscle</figcaption>
+          </figure>
+        </div>
+        <div class="column">
+          <figure>
+            <a href="diet_selection_liquid">
+              <img
+                src="{{ url_for('static', filename= 'images/' + 'liquids.jpg') }}"
+                alt="Mountains"
+                style="width: 100%"
+                width="150"
+                height="200"
+                onclick="myFunction(this);"
+              />
+            </a>
+            <figcaption>Liquid Diet</figcaption>
+          </figure>
+        </div>
+        <div class="column">
+          <figure>
+            <a href="diet_selection_loss">
+              <img
+                src="{{ url_for('static', filename= 'images/' + 'weight_loss.jpg') }}"
+                alt="Lights"
+                style="width: 100%"
+                width="150"
+                height="200"
+                onclick="myFunction(this);"
+              />
+            </a>
+            <figcaption>Losing Weight</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      {%if render_recipes==True%} {%if render_options==1%}
+
+      <p>Meatball Pasta</p>
+      <p></p>
+      <p>Plain White Rice</p>
+      <p></p>
+      <p>Garlic Bread</p>
+      <p></p>
+      <p>Toasted Bagels</p>
+      <p></p>
+      <p>Chips and Dip</p>
+      <p>{%endif%} {%if render_options==2%}</p>
+
+      <p>Prime Rib</p>
+      <p></p>
+      <p>Porter House Steak</p>
+      <p></p>
+      <p>Salmon</p>
+      <p></p>
+      <p>Tuna Burgers</p>
+      <p></p>
+      <p>Beef Jerky</p>
+      <p>{%endif%} {%if render_options==3%}</p>
+
+      <p>Chicken Soup</p>
+      <p></p>
+      <p>Water</p>
+      <p></p>
+      <p>Graepfruit</p>
+      <p></p>
+      <p>Tomato Soup</p>
+      <p></p>
+      <p>Lentil Soup</p>
+      <p>{%endif%} {%if render_options==4%}</p>
+
+      <p>Italian Salad</p>
+      <p></p>
+      <p>Watermelon</p>
+      <p></p>
+      <p>Celery Sticks</p>
+      <p></p>
+      <p>Cabbage Stew</p>
+      <p></p>
+      <p>Waldorf Salad</p>
+      <p>{%endif%} {%endif%}</p>
+    </center>
+  </body>
 </html>

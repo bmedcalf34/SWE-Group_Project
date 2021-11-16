@@ -1,11 +1,94 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Nutrition</title>
-</head>
-<body>
+  <head>
+    <title>Nutrition</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='index.css')}}" />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
 
-<h1>This is the food nutrition page</h1>
+      body {
+        margin: 0;
+        font-family: Arial;
+      }
+      nav {
+        min-height: 8vh;
+      }
+      img {
+        max-width: 30%;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <ul class="nav-flex-row">
+        <li class="nav-item">
+          <a href="{{ url_for('main_page') }}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url_for('nutrition') }}">Nutrition</a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url_for('diet_selection') }}">Diet Selection</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-item" href="{{ url_for('my_recipes') }}">My Recipes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-item" href="{{ url_for('logout') }}">Log Out</a>
+        </li>
+      </ul>
+    </nav>
+    <center>
+      <h1>This is the food nutrition page</h1>
+      <h2 style="padding-top: 3%">
+        It's time for cooking! What do you have in the fridge? <br />
+      </h2>
+      <br /><br />
+      <form action="{{ url_for('nutrition')}}" method="post">
+        <div class="input-group mb-3" style="max-width: 50%">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Apple, flour, sugar"
+            aria-label="Ingridients"
+            aria-describedby="button-addon2"
+            name="ingredients"
+          />
+          <input
+            type="text"
+            class="form-control"
+            placeholder="1"
+            aria-label="Ingredients"
+            aria-describedby="button-addon2"
+            name="amount"
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-secondary"
+              type="submit"
+              id="button-addon2"
+            >
+              Search
+            </button>
+          </div>
+        </div>
+      </form>
 
-</body>
+      <img src="{{food_url}}" class="d-block w-100" alt="food" />
+      {%for i in range(0, len)%}
+      <p>
+        {{nutrient_name[i]}} {{ nutrients_amount[i]}} {{nutrients_unit[i] }}
+      </p>
+      {%endfor%}
+    </center>
+  </body>
 </html>

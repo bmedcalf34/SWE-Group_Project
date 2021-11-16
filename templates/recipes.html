@@ -63,16 +63,10 @@
             <a href="{{ url_for('main_page') }}">Home</a>
           </li>
           <li class="nav-item">
-            <a href="#about">About</a>
+            <a href="{{ url_for('nutrition') }}">Nutrition</a>
           </li>
           <li class="nav-item">
-            <a href="#reservation">Reservation</a>
-          </li>
-          <li class="nav-item">
-            <a href="#menu">Menu</a>
-          </li>
-          <li class="nav-item">
-            <a href="#shop">Shop</a>
+            <a href="{{ url_for('diet_selection') }}">Diet Selection</a>
           </li>
           <li class="nav-item" >
             <a class="nav-item" href="{{ url_for('my_recipes') }}">My Recipes</a>
@@ -82,7 +76,7 @@
           </li>
         </ul>
       </nav>
-    </div>
+      </div>
     <h1>Search Results for: <span>{{ search }}</span></h1>
     <div class="recipes-container">
       {% for recipe in recipes %}

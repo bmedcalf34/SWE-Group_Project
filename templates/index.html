@@ -17,16 +17,13 @@
   <nav>
     <ul class="nav-flex-row">
       <li class="nav-item">
-        <a href="#about">About</a>
+        <a href="{{ url_for('main_page') }}">Home</a>
       </li>
       <li class="nav-item">
-        <a href="#reservation">Reservation</a>
+        <a href="{{ url_for('nutrition') }}">Nutrition</a>
       </li>
       <li class="nav-item">
-        <a href="#menu">Menu</a>
-      </li>
-      <li class="nav-item">
-        <a href="#shop">Shop</a>
+        <a href="{{ url_for('diet_selection') }}">Diet Selection</a>
       </li>
       <li class="nav-item" >
         <a class="nav-item" href="{{ url_for('my_recipes') }}">My Recipes</a>
@@ -91,23 +88,6 @@
 
   <div class="container">
     <div class="row-flex">
-      <div class="flex-column-form">
-        <h3>
-          Create an Account
-        </h3>
-      <form class="media-centered">
-          <div class="form-group">
-            <p>
-              Please sign up for our website to recieve health benefits and nutritional advice
-            </p>
-            <input type="name" class="form-control" id="exampleInputName1" aria-describedby="nameHelp" placeholder="Enter your username">
-          </div>
-          <div class="form-group">
-            <input type="number" class="form-control" id="exampleInputphoneNumber1" placeholder="Enter your email">
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-      </div>
       <div class="opening-time">
         <h3>
           Opening times
@@ -125,7 +105,7 @@
         <p>
           <span>Team 7</span>
           <span>GSU Software Engineering</span>
-          <span> maryambotrus@gmail.com</span>
+          
         </p>
       </div>
     </div>

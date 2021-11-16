@@ -120,17 +120,6 @@ def food_costs():
     return render_template("calculator.html")
 
 
-"""
- provides nutritional information on food options
- consider building api logic in a seperate class 
-"""
-
-
-@app.route("/nutrition")
-def nutrition():
-    return render_template("nutrition.html")
-
-
 @app.route("/my_recipes", methods=["GET", "POST"])
 @login_required
 def my_recipes():
@@ -155,10 +144,25 @@ def recipes():
             filter_option = request.form.get("filter_by")
             minVal = request.form.get("minVal")
             maxVal = request.form.get("maxVal")
-            response = requests.get(
-                f"https://api.spoonacular.com/recipes/complexSearch?apiKey={api_key2}&query={s_input}&addRecipeNutrition=True&min{filter_option}={minVal}&max{filter_option}={maxVal}&number=9"
-            ).json()
-
+            # if both are given
+            if minVal and maxVal:
+                response = requests.get(
+                    f"https://api.spoonacular.com/recipes/complexSearch?apiKey={api_key2}&query={s_input}&addRecipeNutrition=True&min{filter_option}={minVal}&max{filter_option}={maxVal}&number=9"
+                ).json()
+            # if min Value is given and max value is not given
+            elif minVal:
+                response = requests.get(
+                    f"https://api.spoonacular.com/recipes/complexSearch?apiKey={api_key2}&query={s_input}&addRecipeNutrition=True&min{filter_option}={minVal}&number=9"
+                ).json()
+            # if max value is given and min value is not given
+            elif maxVal:
+                response = requests.get(
+                    f"https://api.spoonacular.com/recipes/complexSearch?apiKey={api_key2}&query={s_input}&addRecipeNutrition=True&max{filter_option}={maxVal}&number=9"
+                ).json()
+            else:
+                response = requests.get(
+                    f"https://api.spoonacular.com/recipes/complexSearch?apiKey={api_key2}&query={s_input}&addRecipeNutrition=True&number=9"
+                ).json()
         if len(response["results"]) == 0:
             return redirect(url_for("main_page"))
         # get title, id, and imageURL
@@ -247,9 +251,130 @@ def unfavorite(recipe_id):
     return redirect(url_for("my_recipes"))
 
 
+@app.route("/nutrition", methods=["GET", "POST"])
+def nutrition():
+    # return render_template("nutrition.html")
+    nutrients_name = []
+    nutrients_amount = []
+    nutrients_unit = []
+    # temp_var = SP_KEY
+    # api = sp.API(temp_var)
+
+    # default food settings
+
+    food = "chicken"
+    amount = 1
+
+    if request.method == "POST":
+        food = request.form["ingredients"]
+        amount = request.form["amount"]
+
+    # find the ingredient id
+    # response = api.autocomplete_ingredient_search(f"{food}", number=1,metaInformation =True)
+    response = requests.get(
+        f"https://api.spoonacular.com/food/ingredients/autocomplete?apiKey={api_key2}&query={food}&number=1&metaInformation=True"
+    )
+
+    # print(response)
+    data = response.json()
+    print("Food type")
+    # print(food)
+    print(data)
+
+    try:
+        food_id = data[0]["id"]
+        food_image = data[0]["image"]
+    except:
+        food = "chicken"
+        amount = 1
+        # response = api.autocomplete_ingredient_search(f"{food}", number=1,metaInformation =True)
+        response = requests.get(
+            f"https://api.spoonacular.com/food/ingredients/autocomplete?apiKey={api_key}&query={food}&number=1&metaInformation=True"
+        )
+        data = response.json()
+        food_id = data[0]["id"]
+        food_image = data[0]["image"]
+    if amount == "":
+        amount = 1
+
+    print(food_image)
+    # find the nutrtion information using id and the amount
+    # response_for_nutrtition = api.get_food_information(f"{food_id}",amount)
+    response_for_nutrtition = requests.get(
+        f"https://api.spoonacular.com/food/ingredients/{food_id}/information?apiKey={api_key2}&amount={amount}"
+    )
+    nutrition_data = response_for_nutrtition.json()
+    nutrients = nutrition_data["nutrition"]["nutrients"]
+    food_url = "https://spoonacular.com/cdn/ingredients_100x100/" + food_image
+
+    # loop through and append nutrients data into
+    for i in range(len(nutrients)):
+        nutrients_name.append((nutrients[i]["name"]))
+        nutrients_amount.append((nutrients[i]["amount"]))
+        nutrients_unit.append((nutrients[i]["unit"]))
+
+    # debug output
+    print(nutrients)
+
+    return render_template(
+        "nutrition.html",
+        data=data[0],
+        nutrient_name=nutrients_name,
+        nutrients_amount=nutrients_amount,
+        nutrients_unit=nutrients_unit,
+        len=len(nutrients),
+        food_url=food_url,
+    )
+
+
 @app.route("/diet_selection")
-def diets():
-    return render_template("diet_selection.html")
+def diet_selection():
+    render_recipes = False
+    return render_template("diet_selection.html", render_recipes=render_recipes)
+
+
+@app.route("/diet_selection_carbs")
+def diet_selection_carbs():
+    render_recipes = True
+    render_options = 1
+    return render_template(
+        "diet_selection.html",
+        render_recipes=render_recipes,
+        render_options=render_options,
+    )
+
+
+@app.route("/diet_selection_meat")
+def diet_selection_meat():
+    render_recipes = True
+    render_options = 2
+    return render_template(
+        "diet_selection.html",
+        render_recipes=render_recipes,
+        render_options=render_options,
+    )
+
+
+@app.route("/diet_selection_liquid")
+def diet_selection_liquid():
+    render_recipes = True
+    render_options = 3
+    return render_template(
+        "diet_selection.html",
+        render_recipes=render_recipes,
+        render_options=render_options,
+    )
+
+
+@app.route("/diet_selection_loss")
+def diet_selection_loss():
+    render_recipes = True
+    render_options = 4
+    return render_template(
+        "diet_selection.html",
+        render_recipes=render_recipes,
+        render_options=render_options,
+    )
 
 
 """
