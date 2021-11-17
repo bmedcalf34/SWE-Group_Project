@@ -131,7 +131,7 @@ def nutrition():
     amount = 1
         
     if request.method == "POST":
-        food = request.form["ingredients"]
+        food = request.form["recipe"]
         amount = request.form["amount"]
     
     # find the ingredient id 
