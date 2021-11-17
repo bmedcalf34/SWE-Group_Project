@@ -27,7 +27,7 @@ This functionality encompasses over 300 lines of code across signup.html, login.
 
 <em> User Story II </em>
 
-Implemented by Maryam Botrus
+Implemented by Maryam Botrus and Able Saw
 
 Michael Phillips (no relation to Michael Phelps) is an Olympic swimmer who cares quite a bit about his macros. He also has poor eyesight and is unable to read food labels. After navigating to the Nutritiona app he wants to be able to count the macros of everything he is eating. Fortunately for Michael he keeps good track of all his ingredients and meals.
 Michael visits the front page of the app and navigates to the nutrition menu. From here he searches the calories and nutritional value for 1 whole chicken, an apple and a sack of flour.
