@@ -38,10 +38,9 @@ This user story consists of the app.route("/nutrition") method from app.py along
 
 <em> User Story III </em>
 
-Implemented by Shaunniel Reid 
+Implemented by Shaunniel Reid
 
-Cameron Payne wants him and his wife to eat healthier. He wants to have ablity to eat his favorite foods but still maintain a healty diet. He finds the Nutritiona Web App and signs up and creates a personal account. He is now able to search for his favorite foods and always finds the healthest option with the nutrition filter options. He can also save all his favorite foods to view every time he logs back into the site. His wife can also make her own account and search for her favorite foods and save them. Now him and wife are eating healthier and are still able to enjoy their favorite types of food.
-The functionality in this user story is made by the @app.route("/login"), @app.route("/logout"), @app.route("/signup"), @app.route("/recipes"), @app.route("/favorite") @app.route("/unfavorite") methods.
+Cameron Payne wants him and his wife to eat healthier. He wants to have the ability to eat his favorite foods but still maintain a healthy diet. He finds the Nutritiona Web App and signs up and creates a personal account. He is now able to search for his favorite foods and always finds the healthiest option with the nutrition filter options. He can also save all his favorite foods to view every time he logs back into the site. His wife can also make her own account and search for her favorite foods and save them. Now Cameron Payne and his wife are eating healthier and are still able to enjoy their favorite types of food. The functionality in this user story is made by the @app.route("/login"), @app.route("/logout"), @app.route("/signup"), @app.route("/recipes"), @app.route("/favorite") @app.route("/unfavorite") methods.
 
 
 <em> User Story IV </em>
