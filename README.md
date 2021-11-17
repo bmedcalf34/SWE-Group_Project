@@ -2,6 +2,8 @@
 
 SWE Project Readme  
 
+Heroku URL: https://swe-group-project.herokuapp.com/#about
+
 Our application is the food app nutrionia which is purposed for the task of providing recipes, nutritional and dietary advice to users. Our application encompasses a multi-page web app that features dietary information, recipe and nutrition look ups. 
 
 <strong> Software Dependencies: </strong>
