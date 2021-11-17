@@ -3,9 +3,10 @@
 
 <head>
     <title>Recipes by Ingredient</title>
+
 </head>
 
-<body>
+<body style="text-align:center;">
     <center>
         <h1>This is the recipe search by ingredient page</h1>
         <h2 style="padding-top: 3%;">
@@ -20,20 +21,25 @@
                 </div>
             </div>
         </form>
-        <img src="{{food_url}}" class="d-block w-100" alt="food" height= 100 width = 100>
-		
-		
-		
-		Recipe Name {{recipe_info['title']}} Ingredient Missing : {{recipe_info['missedIngredientCount']}} Ingredients Used : {{recipe_info['UsedIngredientCount']}}
-		Number of Likes: {{recipe_info['likes']}}
-		
-		
-		{%for i in range(0,lenMissing)%}
-        <p> Ingredient Missing : {{ingredients_missing[i]}}  </p>
+        <img src="{{food_url}}" class="d-block w-100" alt="food" height=100 width=100>
+
+
+
+        Recipe Name: {{recipe_info['title']}} Ingredient Missing : {{lenMissing}}
+        Ingredients Used : {{lenUsed}} Number of Likes: {{recipe_info['likes']}}
+
+
+        {%for i in range(0,lenMissing)%}
+        <p> Ingredient Missing : {{ingredients_missing[i]}} </p>
         {%endfor%}
 
 
         {%for i in range(0, lenUsed)%}
-        <p> Ingredients Used : {{ ingredients_used[i]}}  </p>
+        <p> Ingredients Used : {{ ingredients_used[i]}} </p>
         {%endfor%}
-		
+
+
+    </center>
+</body>
+
+</html>
