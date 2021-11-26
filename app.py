@@ -100,8 +100,7 @@ db.session.commit()
 @login_required
 def main_page():
     # serves the main page of the application
-
-    return render_template("index.html", user=session["user"])
+    return render_template("index.html", user=session["user"],login_status=True)
 
 
 @app.route("/testing")
@@ -131,11 +130,6 @@ def login():
             flash("Username was wrong")
             return redirect(url_for("login"))
     return render_template("login.html", form=form)
-
-
-
-
-    return render_template("index.html", user=session["user"])
 
 @app.route("/logout", methods=["GET", "POST"])
 @login_required
