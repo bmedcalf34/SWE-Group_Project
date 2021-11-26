@@ -543,12 +543,8 @@ def meal_search():
     return render_template("meal_search.html")
 
 
-
 '''
 App Sign Up Code 
 '''
-
-
-
 if __name__ == "__main__":
     app.run()
