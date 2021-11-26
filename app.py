@@ -1,6 +1,6 @@
 import flask
 from flask import Flask
-from jinja2.utils import F
+#from jinja2.utils import F
 import requests
 from flask import render_template, redirect, url_for, session, request, flash
 from werkzeug.wrappers import response
@@ -93,21 +93,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-
-'''
-Data Base Import 
-'''
-class User(UserMixin,db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    password = db.Column(db.String(80), unique=True, nullable=False)
-
-    def __repr__(self):
-        return f"<User {self.username}>"
-
-    def get_username(self):
-        return self.username
-
 db.create_all()
 db.session.commit()
 
@@ -152,36 +137,6 @@ def login():
 
     return render_template("index.html", user=session["user"])
 
-
-@app.route("/testing")
-def testing():
-    users = User.query.all()
-    for user in users:
-        print(user.username)
-    return "Worked"
-
-
-# Login Page
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        # Query the username of the user
-        user = User.query.filter_by(username=form.username.data).first()
-        if user:
-            if check_password_hash(user.password, form.password.data):
-                login_user(user)
-                session["user"] = {"username": user.username, "id": user.id}
-                return redirect(url_for("main_page"))
-            else:
-                flash("Password was wrong")
-                return redirect(url_for("login"))
-        else:
-            flash("Username was wrong")
-            return redirect(url_for("login"))
-    return render_template("login.html", form=form)
-
-
 @app.route("/logout", methods=["GET", "POST"])
 @login_required
 def logout():
@@ -214,13 +169,6 @@ def sign_up():
 """
 tabulates food costs
 """
-
-
-
-
-    return render_template("index.html",login_name="empty_user",login_status=False)
-
-
 
 
 @app.route("/calculator")
@@ -303,33 +251,6 @@ def recipes():
             recipes.append(recipe)
     return render_template("recipes.html", recipes=recipes, search=s_input)
 
-
-@app.route(
-    "/recipe/<string:title>/<path:image>/<int:calories>/<int:carbs>/<int:fat>/<int:protein>/<int:recipe_id>/<string:user_id>",
-    methods=["GET", "POST"],
-)
-@login_required
-def recipe(title, image, calories, carbs, fat, protein, recipe_id, user_id):
-    recipe_object = {
-        "title": title,
-        "image": image,
-        "calories": calories,
-        "carbs": carbs,
-        "fat": fat,
-        "protein": protein,
-        "recipe_id": recipe_id,
-        "user_id": user_id,
-    }
-    # check if the recipe is on the database
-    fav = True
-    food_recipes = FoodRecipe.query.filter_by(user_id=session["user"]["id"]).all()
-    for recipe in food_recipes:
-        if recipe.title == title:
-            fav = False
-            return render_template("recipe.html", recipe_object=recipe_object, fav=fav)
-    return render_template("recipe.html", recipe_object=recipe_object, fav=fav)
-
-
 @app.route(
     "/favorite/<string:title>/<path:image>/<int:calories>/<int:carbs>/<int:fat>/<int:protein>/<int:recipe_id>/<int:user_id>",
     methods=["GET", "POST"],
@@ -350,16 +271,6 @@ def favorite(title, image, calories, carbs, fat, protein, recipe_id, user_id):
     db.session.commit()
     # return to main page
     return redirect(url_for("my_recipes"))
-
-
-@app.route("/unfavorite/<int:recipe_id>", methods=["GET", "POST"])
-def unfavorite(recipe_id):
-    # put info in databas
-    recipe = FoodRecipe.query.filter_by(recipe_id=recipe_id).delete()
-    db.session.commit()
-    # return to main page
-    return redirect(url_for("my_recipes"))
-
 
 @app.route("/nutrition", methods=["GET", "POST"])
 def nutrition():
@@ -476,72 +387,6 @@ def diet_selection_liquid():
     )
 
 
-@app.route("/recipes", methods=["GET", "POST"])
-@login_required
-def recipes():
-    if request.method == "POST":
-        s_input = request.form.get("search")
-        if request.form.get("filter_by") == "Filter by":
-            # not filtered by anything, then just do a normal search
-            # get the information from the api
-            response = requests.get(
-                f"https://api.spoonacular.com/recipes/complexSearch?apiKey={api_key2}&query={s_input}&addRecipeNutrition=True&number=9"
-            ).json()
-        else:
-            # get the filtering option
-            filter_option = request.form.get("filter_by")
-            minVal = request.form.get("minVal")
-            maxVal = request.form.get("maxVal")
-            # if both are given
-            if minVal and maxVal:
-                response = requests.get(
-                    f"https://api.spoonacular.com/recipes/complexSearch?apiKey={api_key2}&query={s_input}&addRecipeNutrition=True&min{filter_option}={minVal}&max{filter_option}={maxVal}&number=9"
-                ).json()
-            # if min Value is given and max value is not given
-            elif minVal:
-                response = requests.get(
-                    f"https://api.spoonacular.com/recipes/complexSearch?apiKey={api_key2}&query={s_input}&addRecipeNutrition=True&min{filter_option}={minVal}&number=9"
-                ).json()
-            # if max value is given and min value is not given
-            elif maxVal:
-                response = requests.get(
-                    f"https://api.spoonacular.com/recipes/complexSearch?apiKey={api_key2}&query={s_input}&addRecipeNutrition=True&max{filter_option}={maxVal}&number=9"
-                ).json()
-            else:
-                response = requests.get(
-                    f"https://api.spoonacular.com/recipes/complexSearch?apiKey={api_key2}&query={s_input}&addRecipeNutrition=True&number=9"
-                ).json()
-        if len(response["results"]) == 0:
-            return redirect(url_for("main_page"))
-        # get title, id, and imageURL
-        recipes = []
-        for result in response["results"]:
-            title = result["title"]
-            recipe_id = result["id"]
-            image = result["image"]
-            for nutrient in result["nutrition"]["nutrients"]:
-                if nutrient["name"] == "Calories":
-                    calories = int(nutrient["amount"])
-                elif nutrient["name"] == "Carbohydrates":
-                    carbs = int(nutrient["amount"])
-                elif nutrient["name"] == "Fat":
-                    fat = int(nutrient["amount"])
-                elif nutrient["name"] == "Protein":
-                    protein = int(nutrient["amount"])
-            recipe = FoodRecipe(
-                title=title,
-                user_id=session["user"]["id"],
-                recipe_id=recipe_id,
-                image=image,
-                calories=calories,
-                fat=fat,
-                carbs=carbs,
-                protein=protein,
-            )
-            recipes.append(recipe)
-    return render_template("recipes.html", recipes=recipes, search=s_input)
-
-
 @app.route(
     "/recipe/<string:title>/<path:image>/<int:calories>/<int:carbs>/<int:fat>/<int:protein>/<int:recipe_id>/<string:user_id>",
     methods=["GET", "POST"],
@@ -568,28 +413,6 @@ def recipe(title, image, calories, carbs, fat, protein, recipe_id, user_id):
     return render_template("recipe.html", recipe_object=recipe_object, fav=fav)
 
 
-@app.route(
-    "/favorite/<string:title>/<path:image>/<int:calories>/<int:carbs>/<int:fat>/<int:protein>/<int:recipe_id>/<int:user_id>",
-    methods=["GET", "POST"],
-)
-def favorite(title, image, calories, carbs, fat, protein, recipe_id, user_id):
-    # put info in databas
-    recipe = FoodRecipe(
-        title=title,
-        image=image,
-        calories=calories,
-        carbs=carbs,
-        fat=fat,
-        protein=protein,
-        recipe_id=recipe_id,
-        user_id=user_id,
-    )
-    db.session.add(recipe)
-    db.session.commit()
-    # return to main page
-    return redirect(url_for("my_recipes"))
-
-
 @app.route("/unfavorite/<int:recipe_id>", methods=["GET", "POST"])
 def unfavorite(recipe_id):
     # put info in databas
@@ -597,137 +420,9 @@ def unfavorite(recipe_id):
     db.session.commit()
     # return to main page
     return redirect(url_for("my_recipes"))
-
-
-@app.route("/nutrition", methods=["GET", "POST"])
-def nutrition():
-    # return render_template("nutrition.html")
-    nutrients_name = []
-    nutrients_amount = []
-    nutrients_unit = []
-    # temp_var = SP_KEY
-    # api = sp.API(temp_var)
-
-    # default food settings
-
-    food = "chicken"
-    amount = 1
-
-    if request.method == "POST":
-        food = request.form["ingredients"]
-        amount = request.form["amount"]
-
-    # find the ingredient id
-    # response = api.autocomplete_ingredient_search(f"{food}", number=1,metaInformation =True)
-    response = requests.get(
-        f"https://api.spoonacular.com/food/ingredients/autocomplete?apiKey={api_key2}&query={food}&number=1&metaInformation=True"
-    )
-
-    # print(response)
-    data = response.json()
-    print("Food type")
-    # print(food)
-    print(data)
-
-    try:
-        food_id = data[0]["id"]
-        food_image = data[0]["image"]
-    except:
-        food = "chicken"
-        amount = 1
-        # response = api.autocomplete_ingredient_search(f"{food}", number=1,metaInformation =True)
-        response = requests.get(
-            f"https://api.spoonacular.com/food/ingredients/autocomplete?apiKey={api_key}&query={food}&number=1&metaInformation=True"
-        )
-        data = response.json()
-        food_id = data[0]["id"]
-        food_image = data[0]["image"]
-    if amount == "":
-        amount = 1
-
-    print(food_image)
-    # find the nutrtion information using id and the amount
-    # response_for_nutrtition = api.get_food_information(f"{food_id}",amount)
-    response_for_nutrtition = requests.get(
-        f"https://api.spoonacular.com/food/ingredients/{food_id}/information?apiKey={api_key2}&amount={amount}"
-    )
-    nutrition_data = response_for_nutrtition.json()
-    nutrients = nutrition_data["nutrition"]["nutrients"]
-    food_url = "https://spoonacular.com/cdn/ingredients_100x100/" + food_image
-
-    # loop through and append nutrients data into
-    for i in range(len(nutrients)):
-        nutrients_name.append((nutrients[i]["name"]))
-        nutrients_amount.append((nutrients[i]["amount"]))
-        nutrients_unit.append((nutrients[i]["unit"]))
-
-    # debug output
-    print(nutrients)
-
-    return render_template(
-        "nutrition.html",
-        data=data[0],
-        nutrient_name=nutrients_name,
-        nutrients_amount=nutrients_amount,
-        nutrients_unit=nutrients_unit,
-        len=len(nutrients),
-        food_url=food_url,
-    )
-
-
-@app.route("/diet_selection")
-def diet_selection():
-    render_recipes = False
-    return render_template("diet_selection.html", render_recipes=render_recipes)
-
-
-@app.route("/diet_selection_carbs")
-def diet_selection_carbs():
-    render_recipes = True
-    render_options = 1
-    return render_template(
-        "diet_selection.html",
-        render_recipes=render_recipes,
-        render_options=render_options,
-    )
-
-
-@app.route("/diet_selection_meat")
-def diet_selection_meat():
-    render_recipes = True
-    render_options = 2
-    return render_template(
-        "diet_selection.html",
-        render_recipes=render_recipes,
-        render_options=render_options,
-    )
-
-
-@app.route("/diet_selection_liquid")
-def diet_selection_liquid():
-    render_recipes = True
-    render_options = 3
-    return render_template(
-        "diet_selection.html",
-        render_recipes=render_recipes,
-        render_options=render_options,
-    )
 
  #provides nutritional information on food options
  #consider building api logic in a seperate class 
-@app.route("/nutrition", methods=["GET", "POST"])
-def nutrition():
-    #return render_template("nutrition.html")
-    nutrients_name = []
-    nutrients_amount = []
-    nutrients_unit = []
-    temp_var = SP_KEY
-    api = sp.API(temp_var)
-    
-    # default food settings
-
-
-
 
     #loop through and append nutrients data into 
     for i in range(len(nutrients)):
@@ -746,11 +441,6 @@ def nutrition():
                 len = len(nutrients),
                 food_url=food_url
      )
-# recipes endpoint
-@app.route("/recipes", methods=["GET", "POST"])
-def recipes():
-    print('Recipes served')
-    return render_template("recipes.html")
 
 @app.route("/diet_selection")
 def diets():
@@ -823,11 +513,6 @@ def signup_post():
             db.session.commit()
 
     return render_template("index.html",login_name=user.username,login_status=True)
-
-
-@app.route("/login")
-def login():
-    return flask.render_template("login.html")
 
 
 @app.route("/login", methods=["POST"])
