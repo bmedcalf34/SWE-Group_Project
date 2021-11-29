@@ -54,5 +54,9 @@ Looking into his cupboard, Stephen sees that he has a good amount of potatoes, s
 This app funcionality is made up of the search.py file, which contains the search algorithm, as well as the signup.html, login.html, index.html, and recipes.html files for signing up, logging in, and navigating to the recipe functionality.
 
 <em> User Story IV </em>
+   
 
+
+
+   
 Implemented by ...
