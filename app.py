@@ -55,7 +55,6 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SECRET_KEY"] = "impossiblekey"
 db = SQLAlchemy(app)
 from models import *
-
 api_key = os.environ.get("api_key")
 api_key2 = os.environ.get("api_key2")
 
@@ -220,6 +219,13 @@ def recipes():
         # get title, id, and imageURL
         recipes = []
         for result in response["results"]:
+            #print(result)
+            '''
+            ingredient_list = []
+            for step in ['analyzedInstructions'][0]['steps']:
+                for ingredient in step['ingredients']:
+                    ingredient_list.append(ingredient['name'])
+             '''
             title = result["title"]
             recipe_id = result["id"]
             image = result["image"]
