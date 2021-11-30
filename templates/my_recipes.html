@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Recipes Search</title>
+    <title>My Recipes</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='index.css')}}" />
     <!-- Bootstrap CSS -->
     <link
@@ -76,10 +76,10 @@
           </li>
         </ul>
       </nav>
-      </div>
-    <h1>Search Results for: <span>{{ search }}</span></h1>
+    </div>
+    <h1>My Recipes</h1>
     <div class="recipes-container">
-      {% for recipe in recipes %}
+      {% for recipe in food_recipes %}
       <a
         href="{{ url_for('recipe', title=recipe.title, image=recipe.image, calories=recipe.calories, carbs=recipe.carbs, fat=recipe.fat,protein=recipe.protein, recipe_id=recipe.recipe_id, user_id=recipe.user_id) }}"
         ><div class="recipe-container">
@@ -90,27 +90,4 @@
       {% endfor %}
     </div>
   </body>
-</html>
-<html>
-<head>
-  <title>Recipes</title>
-</head>
-<body>
-<center>
-<h1>This is the recipes page</h1>
-<h2 style="padding-top: 3%;">
-      Are you hungry? Lets see what you can cook up <br>
-  </h2>
-<form action="/nutrition" method = "post">
-      <div class="input-group mb-3" style="max-width: 50%;">
-          <input type="text" class="form-control" placeholder="Apple, carrot, potato" aria-label="Ingredients" aria-describedby="button-addon2" name="ingredients">
-		  <input type="text" class="form-control" placeholder="2" aria-label="Ingredients" aria-describedby="button-addon2" name="amount">
-          <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
-          </div>          
-      </div>
-  </form>
-  
-</center>
-</body>
 </html>
