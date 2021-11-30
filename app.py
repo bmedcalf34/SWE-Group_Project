@@ -220,12 +220,15 @@ def recipes():
         recipes = []
         for result in response["results"]:
             #print(result)
-            '''
+            
             ingredient_list = []
-            for step in ['analyzedInstructions'][0]['steps']:
-                for ingredient in step['ingredients']:
-                    ingredient_list.append(ingredient['name'])
-             '''
+            try:
+                for step in ['analyzedInstructions'][0]['steps']:
+                    for ingredient in step['ingredients']:
+                        ingredient_list.append(ingredient[0]['name'])
+            except:
+                print('json parsing error')
+            
             title = result["title"]
             recipe_id = result["id"]
             image = result["image"]
