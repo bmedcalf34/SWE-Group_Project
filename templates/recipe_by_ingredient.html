@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Recipes by Ingredient</title>
+
+</head>
+
+<body style="text-align:center;">
+    <center>
+        <h1>This is the recipe search by ingredient page</h1>
+        <h2 style="padding-top: 3%;">
+            Looking to find recipes based on ingredients? Lets see what you can look up <br>
+        </h2>
+        <form action="/recipe_by_ingredient" method="post">
+            <div class="input-group mb-3" style="max-width: 50%;">
+                <input type="text" class="form-control" placeholder="Apple, carrot, potato" aria-label="Ingredients"
+                    aria-describedby="button-addon2" name="recipe">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+                </div>
+            </div>
+        </form>
+        <img src="{{food_url}}" class="d-block w-100" alt="food" height=100 width=100>
+
+
+
+        Recipe Name: {{recipe_info['title']}} Ingredient Missing : {{lenMissing}}
+        Ingredients Used : {{lenUsed}} Number of Likes: {{recipe_info['likes']}}
+
+
+        {%for i in range(0,lenMissing)%}
+        <p> Ingredient Missing : {{ingredients_missing[i]}} </p>
+        {%endfor%}
+
+
+        {%for i in range(0, lenUsed)%}
+        <p> Ingredients Used : {{ ingredients_used[i]}} </p>
+        {%endfor%}
+
+
+    </center>
+</body>
+
+</html>
