@@ -56,6 +56,7 @@ class MealPlan(db.Model):
         self.user_id = user_id
         self.recipe_id = recipe_id
         self.title = title
+        self.image = image
         self.calories = calories
         self.fat = fat
         self.carbs = carbs

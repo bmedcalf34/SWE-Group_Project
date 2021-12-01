@@ -423,6 +423,7 @@ def get_meal_plan():
                     title=title,
                     user_id=session["user"]["id"],
                     recipe_id=recipe_id,
+                    image = 'https://images-gmi-pmc.edge-generalmills.com/fc99b731-5fa4-4575-b5a1-9ebcbc10a09c.jpg',
                     calories=calories,
                     fat=fat,
                     carbs=carbs,
