@@ -350,7 +350,7 @@ def nutrition():
 
 
 # meal planner
-@app.route("/get_meal_plan")
+@app.route("/get_meal_plan", methods=["GET", "POST"])
 def get_meal_plan():
     if request.method == "GET":
         return render_template("get_meal_plan.html")
