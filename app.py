@@ -439,6 +439,7 @@ def get_meal_plan():
     return render_template("get_meal_plan.html")
 
 
+
 @app.route("/meal_plan", methods=["GET", "POST"])
 def render_meal_plan():
     return render_template("meal_plan.html")
