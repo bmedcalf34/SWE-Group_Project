@@ -415,20 +415,18 @@ def get_meal_plan():
                 # nutrients for the three meal per day
                 calories = nutrient["calories"]
                 carbs = nutrient["carbohydrates"]
-                sourceUrl = nutrient["sourceUrl"]
+
                 fat = nutrient["fat"]
                 protein = nutrient["protein"]
                 recipe = MealPlan(
                     title=title,
                     user_id=session["user"]["id"],
                     recipe_id=recipe_id,
-                    image = 'https://images-gmi-pmc.edge-generalmills.com/fc99b731-5fa4-4575-b5a1-9ebcbc10a09c.jpg',
                     calories=calories,
                     fat=fat,
                     carbs=carbs,
                     protein=protein,
                     day=day,
-                    sourceUrl=sourceUrl,
                 )
                 recipes.append(recipe)
     return render_template("meal_plan.html")
@@ -478,10 +476,9 @@ def diet_selection_liquid():
     methods=["GET", "POST"],
 )
 @login_required
-def recipe(title, image, calories, carbs, fat, protein, recipe_id, user_id):
+def recipe(title, calories, carbs, fat, protein, recipe_id, user_id):
     recipe_object = {
         "title": title,
-        "image": image,
         "calories": calories,
         "carbs": carbs,
         "fat": fat,
