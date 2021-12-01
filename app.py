@@ -352,11 +352,12 @@ def nutrition():
 # meal planner
 @app.route("/get_meal_plan")
 def get_meal_plan():
-
+    if request.method == "GET":
+        return render_template("get_meal_plan.html")
     if request.method == "POST":
 
         # get the timeframe
-        timeFrame = request.form.get("time_Frame")
+        timeFrame = "week"
         targetCalories = request.form.get("targetCalories")
         exclude = request.form.get("exclude")
         diet = request.form.get("diet")
@@ -427,11 +428,8 @@ def get_meal_plan():
                     protein=protein,
                     day=day,
                 )
-            recipes.append(recipe)
-            s_input = "food"
-            return render_template("meal_plan.html", recipes=recipes)
-    if request.method == "GET":
-        return render_template("get_meal_plan.html")
+                recipes.append(recipe)
+    return render_template("meal_plan.html", recipes=recipes)
 
 
 @app.route("/diet_selection")

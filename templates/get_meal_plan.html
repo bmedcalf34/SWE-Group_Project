@@ -112,24 +112,13 @@
             </form>
         </div>
 
-        {%if meal_plan==True%}
-            <div class="recipes-container">
-                {% for recipe in recipes %}
-                <a
-                    href="{{ url_for('recipe', title=recipe.title, calories=recipe.calories, carbs=recipe.carbs, fat=recipe.fat,protein=recipe.protein, recipe_id=recipe.recipe_id, user_id=recipe.user_id) }}">
-                    <div class="recipe-container">
-                        <h2>{{recipe.title}}</h2>
-                        <br />
 
-                    </div>
-                </a>
-                {% endfor %}
-            </div>
-        </body>
+        </div>
+</body>
 
-        </html>
-        <html>
-        {%endif%}
+</html>
+<html>
+
 
 
 
