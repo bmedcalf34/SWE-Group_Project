@@ -403,7 +403,7 @@ def get_meal_plan():
             ).json()
 
         # for meal plan week
-        recipes = []
+        mealplans = []
         for week in response["week"]:
             day = week
             print(day)
@@ -415,10 +415,9 @@ def get_meal_plan():
                 # nutrients for the three meal per day
                 calories = nutrient["calories"]
                 carbs = nutrient["carbohydrates"]
-
                 fat = nutrient["fat"]
                 protein = nutrient["protein"]
-                recipe = MealPlan(
+                mealplan = MealPlan(
                     title=title,
                     user_id=session["user"]["id"],
                     recipe_id=recipe_id,
@@ -428,8 +427,8 @@ def get_meal_plan():
                     protein=protein,
                     day=day,
                 )
-                recipes.append(recipe)
-    return render_template("meal_plan.html")
+                mealplans.append(mealplan)
+    return render_template("meal_plan.html", mealplans=mealplans)
 
 
 @app.route("/diet_selection")
@@ -476,7 +475,21 @@ def diet_selection_liquid():
     methods=["GET", "POST"],
 )
 @login_required
-def recipe(title, calories, carbs, fat, protein, recipe_id, user_id):
+def recipe(title, image, calories, carbs, fat, protein, recipe_id, user_id):
+    recipe_object = {
+        "title": title,
+        "image": image,
+        "calories": calories,
+        "carbs": carbs,
+        "fat": fat,
+        "protein": protein,
+        "recipe_id": recipe_id,
+        "user_id": user_id,
+    }
+
+
+@login_required
+def mealplan(title, calories, carbs, fat, protein, recipe_id, user_id):
     recipe_object = {
         "title": title,
         "calories": calories,

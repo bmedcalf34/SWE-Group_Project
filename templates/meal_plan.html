@@ -88,11 +88,11 @@
     <div class="recipes-container">
         {% for recipe in recipes %}
         <a
-            href="{{ url_for('recipe', title=recipe.title, calories=recipe.calories, carbs=recipe.carbs, fat=recipe.fat,protein=recipe.protein, recipe_id=recipe.recipe_id, user_id=recipe.user_id) }}">
+            href="{{ url_for('mealplan', title=mealplan.title, calories=mealplan.calories, carbs=mealplan.carbs, fat=mealplan.fat,protein=mealplan.protein, recipe_id=mealplan.recipe_id, user_id=mealplan.user_id) }}">
             <div class="recipe-container">
-                <h2>{{recipe.title}}</h2>
+                <h2>{{mealplan.title}}</h2>
                 <br />
-                    <img src="{{ recipe.title }}" alt="" />
+                <img src="{{ mealplan.title }}" alt="" />
 
             </div>
         </a>
