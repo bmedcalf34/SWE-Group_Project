@@ -13,6 +13,13 @@
     <style>
         @import url("https://fonts.googleapis.com/css?family=Big+Shoulders+Text:100,300,400,500,600,700,800,900&display=swap");
 
+
+		.myDiv {
+			  border: 5px outset red;
+			  background-color: lightblue;
+			  text-align: center;
+		}
+
         body {
             font-family: "Big Shoulders Text", cursive;
         }
@@ -85,17 +92,12 @@
         </nav>
     </div>
     <h1>Meal plan for the week:</h1>
-    <div class="recipes-container">
-        {% for mealplan in mealplans %}
-        <a
-            href="{{ url_for('mealplan', title=mealplan.title, calories=mealplan.calories, carbs=mealplan.carbs, fat=mealplan.fat,protein=mealplan.protein, recipe_id=mealplan.recipe_id, user_id=mealplan.user_id) }}">
-            <div class="recipe-container">
-                <h2>{{mealplan.title}}</h2>
-                <br />
-                <img src="{{ mealplan.title }}" alt="" />
-
-            </div>
-        </a>
+    <div class="myDiv">
+        {% for meals in mealplans %}
+		<p>Name: {{meals.title}}  </p> 
+		<p>Calories: {{meals.calories}}</p> 
+		<p>Calories: {{meals.protein}}</p> 
+		<br>
         {% endfor %}
     </div>
 </body>

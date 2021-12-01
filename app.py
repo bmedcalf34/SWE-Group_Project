@@ -353,8 +353,16 @@ def nutrition():
 @app.route("/get_meal_plan", methods=["GET", "POST"])
 def get_meal_plan():
     if request.method == "POST":
-        print('Posting Stuff')
-        # get the timeframe
+        return render_template("meal_plan.html")
+    return render_template("get_meal_plan.html")
+
+
+@app.route("/meal_plan", methods=["GET", "POST"])
+def render_meal_plan():
+    
+    if request.method == "POST":
+        print('We are posting here')
+        
         timeFrame = "week"
         targetCalories = request.form.get("targetCalories")
         exclude = request.form.get("exclude")
@@ -426,13 +434,10 @@ def get_meal_plan():
                     day=day,
                 )
                 mealplans.append(mealplan)
+        print(mealplan.title)
+        return render_template("meal_plan.html",mealplans=mealplans)
+    else:
         return render_template("meal_plan.html")
-    return render_template("get_meal_plan.html")
-
-
-@app.route("/meal_plan", methods=["GET", "POST"])
-def render_meal_plan():
-    return render_template("meal_plan.html")
 
 @app.route("/diet_selection")
 def diet_selection():
