@@ -86,7 +86,7 @@
     </div>
     <h1>Meal plan for the week:</h1>
     <div class="recipes-container">
-        {% for recipe in recipes %}
+        {% for mealplan in mealplans %}
         <a
             href="{{ url_for('mealplan', title=mealplan.title, calories=mealplan.calories, carbs=mealplan.carbs, fat=mealplan.fat,protein=mealplan.protein, recipe_id=mealplan.recipe_id, user_id=mealplan.user_id) }}">
             <div class="recipe-container">
