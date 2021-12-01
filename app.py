@@ -417,7 +417,6 @@ def get_meal_plan():
                 carbs = nutrient["carbohydrates"]
                 fat = nutrient["fat"]
                 protein = nutrient["protein"]
-
                 recipe = MealPlan(
                     title=title,
                     user_id=session["user"]["id"],
@@ -430,7 +429,7 @@ def get_meal_plan():
                     day=day,
                 )
                 recipes.append(recipe)
-    return render_template("meal_plan.html", recipes=recipes)
+    return render_template("meal_plan.html")
 
 
 @app.route("/diet_selection")
