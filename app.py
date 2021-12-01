@@ -1,7 +1,9 @@
 import flask
 from flask import Flask
 
-# from jinja2.utils import F
+
+# from jinja2.utils import 
+
 import requests
 from flask import render_template, redirect, url_for, session, request, flash
 from werkzeug.wrappers import response
@@ -55,7 +57,6 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SECRET_KEY"] = "impossiblekey"
 db = SQLAlchemy(app)
 from models import *
-
 api_key = os.environ.get("api_key")
 api_key2 = os.environ.get("api_key2")
 
@@ -102,7 +103,9 @@ db.session.commit()
 @login_required
 def main_page():
     # serves the main page of the application
+
     return render_template("index.html", user=session["user"], login_status=True)
+
 
 
 @app.route("/testing")
@@ -221,7 +224,6 @@ def recipes():
         # get title, id, and imageURL
         recipes = []
         for result in response["results"]:
-            # print(result)
 
             title = result["title"]
             recipe_id = result["id"]
@@ -506,44 +508,39 @@ def unfavorite(recipe_id):
     # return to main page
     return redirect(url_for("my_recipes"))
 
-    # provides nutritional information on food options
-    # consider building api logic in a seperate class
+ #provides nutritional information on food options
+ #consider building api logic in a seperate class 
 
-    # loop through and append nutrients data into
+    #loop through and append nutrients data into 
     for i in range(len(nutrients)):
-        nutrients_name.append((nutrients[i]["name"]))
-        nutrients_amount.append((nutrients[i]["amount"]))
-        nutrients_unit.append((nutrients[i]["unit"]))
+        nutrients_name.append((nutrients[i]['name']))
+        nutrients_amount.append((nutrients[i]['amount']))
+        nutrients_unit.append((nutrients[i]['unit']))
 
     # debug output
     print(nutrients)
 
-    return render_template(
-        "nutrition.html",
-        data=data[0],
-        nutrient_name=nutrients_name,
-        nutrients_amount=nutrients_amount,
-        nutrients_unit=nutrients_unit,
-        len=len(nutrients),
-        food_url=food_url,
-    )
-
+    return render_template("nutrition.html",
+                data = data[0],
+                nutrient_name = nutrients_name,
+                nutrients_amount = nutrients_amount,
+                nutrients_unit = nutrients_unit,
+                len = len(nutrients),
+                food_url=food_url
+     )
 
 @app.route("/diet_selection")
 def diets():
     render_recipes = False
-    return render_template("diet_selection.html", render_recipes=render_recipes)
+    return render_template("diet_selection.html",render_recipes=render_recipes)
 
 
 @app.route("/diet_selection_carbs")
 def diets_carbs():
     render_recipes = True
     render_options = 1
-    return render_template(
-        "diet_selection.html",
-        render_recipes=render_recipes,
-        render_options=render_options,
-    )
+    return render_template("diet_selection.html",render_recipes=render_recipes,render_options=render_options)
+
 
 
 @app.route("/diet_selection_loss")
@@ -614,7 +611,7 @@ def signup_post():
             db.session.add(user)
             db.session.commit()
 
-    return render_template("index.html", login_name=user.username, login_status=True)
+    return render_template("index.html",login_name=user.username,login_status=True)
 
 
 @app.route("/login", methods=["POST"])
@@ -647,8 +644,8 @@ def meal_search():
     return render_template("meal_search.html")
 
 
-"""
+'''
 App Sign Up Code 
-"""
+'''
 if __name__ == "__main__":
     app.run()

@@ -33,21 +33,11 @@
         <a class="nav-item" href="{{ url_for('my_recipes') }}">My Recipes</a>
       </li>
       <li class="nav-item">
-        <a class="nav-item" href="{{ url_for('logout') }}">Log Out</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-item" href="{{ url_for('get_meal_plan') }}">Get a Meal Plan</a>
       </li>
       <li class="nav-item">
-        <a class="nav-item" href="nutrition">Nutrition</a>
+        <a class="nav-item" href="{{ url_for('logout') }}">Log Out</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-item" href="diet_selection">Diet Selection</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-item" href="recipe_nutrition">Recipe Nutrition</a>
-      </li>
-    </ul>
   </nav>
 
   <section class="section-intro">
@@ -114,26 +104,6 @@
 
   <div class="container">
     <div class="row-flex">
-
-      <div class="flex-column-form">
-        <h3>
-          Create an Account
-        </h3>
-        <form class="media-centered" method="POST" action="/login">
-          <div class="form-group">
-            <p>
-              Please sign up for our website to recieve health benefits and nutritional advice
-            </p>
-            <input type="name" class="form-control" name="username" aria-describedby="nameHelp"
-              placeholder="Enter your username">
-          </div>
-          <div class="form-group">
-            <input type="name" class="form-control" name="password" placeholder="Enter your password">
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        <a href={{ url_for('signup') }}>Sign Up</a>
-      </div>
       <div class="opening-time">
         <h3>
           Opening times
