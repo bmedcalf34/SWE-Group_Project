@@ -415,6 +415,7 @@ def get_meal_plan():
                 # nutrients for the three meal per day
                 calories = nutrient["calories"]
                 carbs = nutrient["carbohydrates"]
+                sourceUrl = nutrient["sourceUrl"]
                 fat = nutrient["fat"]
                 protein = nutrient["protein"]
 
@@ -427,6 +428,7 @@ def get_meal_plan():
                     carbs=carbs,
                     protein=protein,
                     day=day,
+                    sourceUrl=sourceUrl,
                 )
                 recipes.append(recipe)
     return render_template("meal_plan.html", recipes=recipes)
