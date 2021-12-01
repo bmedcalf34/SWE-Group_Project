@@ -348,6 +348,9 @@ def nutrition():
         food_url=food_url,
     )
 
+@app.route("/meal_plan", methods=["GET", "POST"])
+def meal_plan():
+    return render_template("meal_plan.html")
 
 # meal planner
 @app.route("/get_meal_plan", methods=["GET", "POST"])
@@ -412,6 +415,9 @@ def get_meal_plan():
                 # get meals per day fo the week
                 title = meal["title"]
                 recipe_id = meal["id"]
+                sourceUrl = meal["sourceUrl"]
+                readyInMinutes = meal["readyInMinutes"]
+                servings = meal["servings"]
                 # nutrients for the three meal per day
                 calories = nutrient["calories"]
                 carbs = nutrient["carbohydrates"]
@@ -426,6 +432,9 @@ def get_meal_plan():
                     carbs=carbs,
                     protein=protein,
                     day=day,
+                    sourceUrl=sourceUrl,
+                    readyInMinutes=readyInMinutes,
+                    servings=servings,
                 )
                 mealplans.append(mealplan)
     return render_template("meal_plan.html", mealplans=mealplans)
@@ -489,7 +498,9 @@ def recipe(title, image, calories, carbs, fat, protein, recipe_id, user_id):
 
 
 @login_required
-def mealplan(title, calories, carbs, fat, protein, recipe_id, user_id):
+def mealplan(
+    title, calories, carbs, fat, protein, recipe_id, user_id, sourceUrl, readyInMinutes,servings
+):
     recipe_object = {
         "title": title,
         "calories": calories,
@@ -498,6 +509,9 @@ def mealplan(title, calories, carbs, fat, protein, recipe_id, user_id):
         "protein": protein,
         "recipe_id": recipe_id,
         "user_id": user_id,
+        "sourceUrl": sourceUrl,
+        "readyInMinutes": readyInMinutes,
+        "servings": servings,
     }
     # check if the recipe is on the database
     fav = True
