@@ -224,7 +224,6 @@ def recipes():
         # get title, id, and imageURL
         recipes = []
         for result in response["results"]:
-
             title = result["title"]
             recipe_id = result["id"]
             image = result["image"]
