@@ -14,11 +14,17 @@
         @import url("https://fonts.googleapis.com/css?family=Big+Shoulders+Text:100,300,400,500,600,700,800,900&display=swap");
 
 
-		.myDiv {
-			  border: 5px outset red;
-			  background-color: lightblue;
-			  text-align: center;
-		}
+        .myDiv {
+            border: 5px outset red;
+            background-color: lightblue;
+            text-align: center;
+
+
+        }
+
+        .item {
+            font-weight: bold;
+        }
 
         body {
             font-family: "Big Shoulders Text", cursive;
@@ -67,6 +73,7 @@
             border-radius: 2rem;
         }
     </style>
+
 </head>
 
 <body>
@@ -93,12 +100,20 @@
     </div>
     <h1>Meal plan for the week:</h1>
     <div class="myDiv">
+
         {% for meals in mealplans %}
-		<p>Name: {{meals.title}}  </p> 
-		<p>Calories: {{meals.calories}}</p> 
-		<p>Calories: {{meals.protein}}</p> 
-		<br>
+
+
+
+        <td><a href="{{meals.sourceUrl}}">{{meals.title}}</a></td>
+        <p>day: {{meals.day}} </p>
+        <p>readyInMinutes: {{meals.readyInMinutes}} </p>
+        <p>servings: {{meals.servings}} </p>
+
+        <br>
+
         {% endfor %}
+
     </div>
 </body>
 

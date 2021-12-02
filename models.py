@@ -48,9 +48,9 @@ class MealPlan(db.Model):
     fat = db.Column(db.String(20), nullable=False)
     protein = db.Column(db.String(20), nullable=False)
     day = db.Column(db.String(20), nullable=False)
-    #sourceUrl = db.Column(db.String(20), nullable=False)
-    #readyInMinutes = db.Column(db.Integer)
-    #servings = db.Column(db.Integer)
+    sourceUrl = db.Column(db.String(20), nullable=False)
+    readyInMinutes = db.Column(db.Integer)
+    servings = db.Column(db.Integer)
 
     def __init__(
         self,
@@ -62,9 +62,9 @@ class MealPlan(db.Model):
         carbs,
         protein,
         day,
-        #sourceUrl,
-        #readyInMinutes,
-        #servings,
+        sourceUrl,
+        readyInMinutes,
+        servings,
     ) -> None:
         # constructor for recipe
         self.user_id = user_id
@@ -75,6 +75,6 @@ class MealPlan(db.Model):
         self.carbs = carbs
         self.protein = protein
         self.day = day
-        #self.sourceUrl = sourceUrl
-        #self.readyInMinutes = readyInMinutes
-        #self.servings = servings
+        self.sourceUrl = sourceUrl
+        self.readyInMinutes = readyInMinutes
+        self.servings = servings

@@ -417,6 +417,9 @@ def render_meal_plan():
                 # get meals per day fo the week
                 title = meal["title"]
                 recipe_id = meal["id"]
+                sourceUrl = meal["sourceUrl"]
+                readyInMinutes = meal["readyInMinutes"]
+                servings = meal["servings"]
                 # nutrients for the three meal per day
                 calories = nutrient["calories"]
                 carbs = nutrient["carbohydrates"]
@@ -431,10 +434,13 @@ def render_meal_plan():
                     carbs=carbs,
                     protein=protein,
                     day=day,
+                    sourceUrl = sourceUrl,
+                    readyInMinutes = readyInMinutes,
+                    servings = servings,
                 )
                 mealplans.append(mealplan)
         print(mealplan.title)
-        return render_template("meal_plan.html",mealplans=mealplans)
+        return render_template("meal_plan.html",mealplans=mealplans,week=response["week"])
     else:
         return render_template("meal_plan.html")
 
