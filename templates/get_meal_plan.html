@@ -79,10 +79,10 @@
                     <a class="nav-item" href="{{ url_for('my_recipes') }}">My Recipes</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-item" href="{{ url_for('logout') }}">Log Out</a>
+                    <a class="nav-item" href="{{ url_for('get_meal_plan') }}">Recipes by Ingredients</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-item" href="{{ url_for('get_meal_plan') }}">Recipes by Ingredients</a>
+                    <a class="nav-item" href="{{ url_for('logout') }}">Log Out</a>
                 </li>
             </ul>
         </nav>
@@ -101,10 +101,6 @@
         <div class="link-to-book-wrapper">
 
             <form action="/meal_plan" method="post">
-                <select name="time_Frame" id="">
-                    <option>Day</option>
-                    <option>Week</option>
-                </select>
                 <input name="targetCalories" type="number" placeholder="Target Calories">
                 <input type="text" name="diet" placeholder="Enter Diet">
                 <input type="text" name="exclude" placeholder="Enter Exclusions">

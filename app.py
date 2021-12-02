@@ -1,6 +1,9 @@
 import flask
 from flask import Flask
-#from jinja2.utils import F
+
+
+# from jinja2.utils import
+
 import requests
 from flask import render_template, redirect, url_for, session, request, flash
 from werkzeug.wrappers import response
@@ -28,7 +31,6 @@ import requests
 # -*- coding: utf-8 -*-
 """
 Created on Tue Nov  9 21:10:10 2021
-
 @author: Maryam Botrus
 Able Saw
 """
@@ -55,6 +57,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SECRET_KEY"] = "impossiblekey"
 db = SQLAlchemy(app)
 from models import *
+
 api_key = os.environ.get("api_key")
 api_key2 = os.environ.get("api_key2")
 
@@ -68,6 +71,7 @@ login_manager.login_view = "login"
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
 
 SP_KEY = []
 try:
@@ -86,20 +90,22 @@ try:
 except:
     print("No env file found")
 
-app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
+app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
 # Gets rid of a warning
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 
 db.create_all()
 db.session.commit()
 
+
 @app.route("/")
 @login_required
 def main_page():
     # serves the main page of the application
-    return render_template("index.html", user=session["user"],login_status=True)
+
+    return render_template("index.html", user=session["user"], login_status=True)
 
 
 @app.route("/testing")
@@ -129,6 +135,7 @@ def login():
             flash("Username was wrong")
             return redirect(url_for("login"))
     return render_template("login.html", form=form)
+
 
 @app.route("/logout", methods=["GET", "POST"])
 @login_required
@@ -169,14 +176,12 @@ def food_costs():
     return render_template("calculator.html")
 
 
-
 @app.route("/my_recipes", methods=["GET", "POST"])
 @login_required
 def my_recipes():
     # get recipes by user id
     food_recipes = FoodRecipe.query.filter_by(user_id=session["user"]["id"]).all()
     return render_template("my_recipes.html", food_recipes=food_recipes)
-
 
 
 @app.route("/recipes", methods=["GET", "POST"])
@@ -219,16 +224,6 @@ def recipes():
         # get title, id, and imageURL
         recipes = []
         for result in response["results"]:
-            #print(result)
-            
-            ingredient_list = []
-            try:
-                for step in ['analyzedInstructions'][0]['steps']:
-                    for ingredient in step['ingredients']:
-                        ingredient_list.append(ingredient[0]['name'])
-            except:
-                print('json parsing error')
-            
             title = result["title"]
             recipe_id = result["id"]
             image = result["image"]
@@ -254,6 +249,7 @@ def recipes():
             recipes.append(recipe)
     return render_template("recipes.html", recipes=recipes, search=s_input)
 
+
 @app.route(
     "/favorite/<string:title>/<path:image>/<int:calories>/<int:carbs>/<int:fat>/<int:protein>/<int:recipe_id>/<int:user_id>",
     methods=["GET", "POST"],
@@ -274,6 +270,7 @@ def favorite(title, image, calories, carbs, fat, protein, recipe_id, user_id):
     db.session.commit()
     # return to main page
     return redirect(url_for("my_recipes"))
+
 
 @app.route("/nutrition", methods=["GET", "POST"])
 def nutrition():
@@ -351,6 +348,101 @@ def nutrition():
     )
 
 
+# meal planner
+@app.route("/get_meal_plan", methods=["GET", "POST"])
+def get_meal_plan():
+    if request.method == "POST":
+        return render_template("meal_plan.html")
+    return render_template("get_meal_plan.html")
+
+
+@app.route("/meal_plan", methods=["GET", "POST"])
+def render_meal_plan():
+    if request.method == "POST":
+        print('We are posting here')
+        
+        timeFrame = "week"
+        targetCalories = request.form.get("targetCalories")
+        exclude = request.form.get("exclude")
+        diet = request.form.get("diet")
+        # if all search conditions are given
+        if diet and exclude and targetCalories:
+            response = requests.get(
+                f"https://api.spoonacular.com/mealplanner/generate?apiKey={api_key2}&timeFrame={timeFrame}&targetCalories={targetCalories}&diet={diet}&exclude={exclude}"
+            ).json()
+        # if diet and exclude is given and target Calories is not given
+        elif diet and exclude:
+            response = requests.get(
+                f"https://api.spoonacular.com/mealplanner/generate?apiKey={api_key2}&timeFrame={timeFrame}&diet={diet}&exclude={exclude}"
+            ).json()
+        # if diet and targetCalories is given and exclude is not given
+        elif diet and targetCalories:
+            response = requests.get(
+                f"https://api.spoonacular.com/mealplanner/generate?apiKey={api_key2}&timeFrame={timeFrame}&targetCalories={targetCalories}&diet={diet}"
+            ).json()
+        # if exclude and targetCalories is given and diet is not given
+        elif exclude and targetCalories:
+            response = requests.get(
+                f"https://api.spoonacular.com/mealplanner/generate?apiKey={api_key2}&timeFrame={timeFrame}&targetCalories={targetCalories}&exclude={exclude}"
+            ).json()
+        # if diet is given and exclude and targetCalories is not given
+        elif diet:
+            response = requests.get(
+                f"https://api.spoonacular.com/mealplanner/generate?apiKey={api_key2}&timeFrame={timeFrame}&diet={diet}"
+            ).json()
+        # if exclude is given and diet and targetCalories is not given
+        elif exclude:
+            response = requests.get(
+                f"https://api.spoonacular.com/mealplanner/generate?apiKey={api_key2}&timeFrame={timeFrame}&exclude={exclude}"
+            ).json()
+        # if targetCalories is given and diet and exclude is not given
+        elif targetCalories:
+            response = requests.get(
+                f"https://api.spoonacular.com/mealplanner/generate?apiKey={api_key2}&timeFrame={timeFrame}&targetCalories={targetCalories}"
+            ).json()
+        else:
+            # nothing is given in input
+            response = requests.get(
+                f"https://api.spoonacular.com/mealplanner/generate?apiKey={api_key2}&timeFrame={timeFrame}"
+            ).json()
+
+        # for meal plan week
+        mealplans = []
+        for week in response["week"]:
+            day = week
+            print(day)
+            nutrient = response["week"][f"{day}"]["nutrients"]
+            for meal in response["week"][f"{day}"]["meals"]:
+                # get meals per day fo the week
+                title = meal["title"]
+                recipe_id = meal["id"]
+                sourceUrl = meal["sourceUrl"]
+                readyInMinutes = meal["readyInMinutes"]
+                servings = meal["servings"]
+                # nutrients for the three meal per day
+                calories = nutrient["calories"]
+                carbs = nutrient["carbohydrates"]
+                fat = nutrient["fat"]
+                protein = nutrient["protein"]
+                mealplan = MealPlan(
+                    title=title,
+                    user_id=session["user"]["id"],
+                    recipe_id=recipe_id,
+                    calories=calories,
+                    fat=fat,
+                    carbs=carbs,
+                    protein=protein,
+                    day=day,
+                    sourceUrl = sourceUrl,
+                    readyInMinutes = readyInMinutes,
+                    servings = servings,
+                )
+                mealplans.append(mealplan)
+        print(mealplan.title)
+        return render_template("meal_plan.html",mealplans=mealplans,week=response["week"])
+    else:
+        return render_template("meal_plan.html")
+
 @app.route("/diet_selection")
 def diet_selection():
     render_recipes = False
@@ -406,6 +498,19 @@ def recipe(title, image, calories, carbs, fat, protein, recipe_id, user_id):
         "recipe_id": recipe_id,
         "user_id": user_id,
     }
+
+
+@login_required
+def mealplan(title, calories, carbs, fat, protein, recipe_id, user_id):
+    recipe_object = {
+        "title": title,
+        "calories": calories,
+        "carbs": carbs,
+        "fat": fat,
+        "protein": protein,
+        "recipe_id": recipe_id,
+        "user_id": user_id,
+    }
     # check if the recipe is on the database
     fav = True
     food_recipes = FoodRecipe.query.filter_by(user_id=session["user"]["id"]).all()
@@ -424,39 +529,44 @@ def unfavorite(recipe_id):
     # return to main page
     return redirect(url_for("my_recipes"))
 
- #provides nutritional information on food options
- #consider building api logic in a seperate class 
+    # provides nutritional information on food options
+    # consider building api logic in a seperate class
 
-    #loop through and append nutrients data into 
+    # loop through and append nutrients data into
     for i in range(len(nutrients)):
-        nutrients_name.append((nutrients[i]['name']))
-        nutrients_amount.append((nutrients[i]['amount']))
-        nutrients_unit.append((nutrients[i]['unit']))
+        nutrients_name.append((nutrients[i]["name"]))
+        nutrients_amount.append((nutrients[i]["amount"]))
+        nutrients_unit.append((nutrients[i]["unit"]))
 
     # debug output
     print(nutrients)
 
-    return render_template("nutrition.html",
-                data = data[0],
-                nutrient_name = nutrients_name,
-                nutrients_amount = nutrients_amount,
-                nutrients_unit = nutrients_unit,
-                len = len(nutrients),
-                food_url=food_url
-     )
+    return render_template(
+        "nutrition.html",
+        data=data[0],
+        nutrient_name=nutrients_name,
+        nutrients_amount=nutrients_amount,
+        nutrients_unit=nutrients_unit,
+        len=len(nutrients),
+        food_url=food_url,
+    )
+
 
 @app.route("/diet_selection")
 def diets():
     render_recipes = False
-    return render_template("diet_selection.html",render_recipes=render_recipes)
+    return render_template("diet_selection.html", render_recipes=render_recipes)
 
 
 @app.route("/diet_selection_carbs")
 def diets_carbs():
     render_recipes = True
     render_options = 1
-    return render_template("diet_selection.html",render_recipes=render_recipes,render_options=render_options)
-
+    return render_template(
+        "diet_selection.html",
+        render_recipes=render_recipes,
+        render_options=render_options,
+    )
 
 
 @app.route("/diet_selection_loss")
@@ -479,20 +589,33 @@ allows the user to search for different meal or food options
 def diets_meat():
     render_recipes = True
     render_options = 2
-    return render_template("diet_selection.html",render_recipes=render_recipes,render_options=render_options)
+    return render_template(
+        "diet_selection.html",
+        render_recipes=render_recipes,
+        render_options=render_options,
+    )
+
 
 @app.route("/diet_selection_liquid")
 def diets_liquid():
     render_recipes = True
     render_options = 3
-    return render_template("diet_selection.html",render_recipes=render_recipes,render_options=render_options)
+    return render_template(
+        "diet_selection.html",
+        render_recipes=render_recipes,
+        render_options=render_options,
+    )
 
 
 @app.route("/diet_selection_loss")
 def diets_loss():
     render_recipes = True
     render_options = 4
-    return render_template("diet_selection.html",render_recipes=render_recipes,render_options=render_options)
+    return render_template(
+        "diet_selection.html",
+        render_recipes=render_recipes,
+        render_options=render_options,
+    )
 
 
 @app.route("/signup")
@@ -502,8 +625,7 @@ def signup():
 
 @app.route("/signup", methods=["POST"])
 def signup_post():
-    
-    
+
     if request.method == "POST":
         username = flask.request.form.get("username")
         password = flask.request.form.get("password")
@@ -515,7 +637,7 @@ def signup_post():
             db.session.add(user)
             db.session.commit()
 
-    return render_template("index.html",login_name=user.username,login_status=True)
+    return render_template("index.html", login_name=user.username, login_status=True)
 
 
 @app.route("/login", methods=["POST"])
@@ -529,16 +651,18 @@ def login_post():
     for user in users:
         print(user.username)
         print(user.password)
-        if(user.password==password):
-            condition=True
+        if user.password == password:
+            condition = True
     print(condition)
     if condition:
-        return render_template("index.html",login_name=user.username,login_status=True)
+        return render_template(
+            "index.html", login_name=user.username, login_status=True
+        )
     else:
         return flask.jsonify({"status": 401, "reason": "Username or Password Error"})
 
 
-#allows the user to search for different meal or food options
+# allows the user to search for different meal or food options
 
 
 @app.route("/meals")
@@ -546,8 +670,8 @@ def meal_search():
     return render_template("meal_search.html")
 
 
-'''
+"""
 App Sign Up Code 
-'''
+"""
 if __name__ == "__main__":
     app.run()
