@@ -359,7 +359,6 @@ def get_meal_plan():
 
 @app.route("/meal_plan", methods=["GET", "POST"])
 def render_meal_plan():
-    
     if request.method == "POST":
         print('We are posting here')
         
