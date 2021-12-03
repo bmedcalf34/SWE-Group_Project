@@ -1,129 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Recipe {{ recipe_object.title }}</title>
-  <link rel="stylesheet" href="{{ url_for('static',filename='index.css')}}" />
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
-  <style>
-    @import url("https://fonts.googleapis.com/css?family=Big+Shoulders+Text:100,300,400,500,600,700,800,900&display=swap");
-
-    body {
-      font-family: "Big Shoulders Text", cursive;
-    }
-
-    .nav-container {
-      min-height: 8vh;
-    }
-
-    h1 {
-      text-align: center;
-      font-size: 4rem;
-    }
-
-    .nutrients h2 {
-      font-size: 5rem;
-      font-weight: bold;
-    }
-
-    .nutrients h3 {
-      font-size: 2.5rem;
-    }
-
-    .img-container {
-      margin-top: 3rem;
-      text-align: center;
-    }
-
-    img {
-      min-width: 30%;
-      height: auto;
-    }
-
-    .container {
-      display: flex;
-      width: 80%;
-      justify-content: center;
-    }
-
-    .nutrients {
-      margin-top: 3rem;
-      width: 20%;
-      width: 40%;
-    }
-
-    .container .button {
-      display: flex;
-      justify-content: center;
-      width: 30%;
-      align-self: center;
-    }
-
-    .container .button button {
-      outline: none;
-      border: none;
-      background: black;
-      color: white;
-      height: 10rem;
-      border-radius: 2rem;
-      font-size: 5rem;
-      text-align: center;
-      padding: 0.5rem 2rem;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="nav-container">
-    <nav>
-      <ul class="nav-flex-row">
-        <li class="nav-item">
-          <a href="{{ url_for('main_page') }}">Home</a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ url_for('nutrition') }}">Nutrition</a>
-        </li>
-        <li class="nav-item">
-          <a href="{{ url_for('diet_selection') }}">Diet Selection</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-item" href="{{ url_for('my_recipes') }}">My Recipes</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-item" href="{{ url_for('get_meal_plan') }}">Get a Meal Plan</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-item" href="{{ url_for('logout') }}">Log Out</a>
-        </li>
-      </ul>
-    </nav>
-  </div>
-  <h1>The Recipe: {{ recipe_object.title }}</h1>
-  <div class="img-container">
-    <img src="{{ recipe_object.image }}" alt="" />
-  </div>
-  <div class="container">
-    <div class="nutrients">
-      <h2>Nutrients:</h2>
-      <h3>Calories: {{recipe_object.calories}}</h3>
-      <h3>Carbohydrates: {{recipe_object.carbs}}</h3>
-      <h3>Fat: {{recipe_object.fat}}</h3>
-      <h3>Protein: {{recipe_object.protein}}</h3>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe {{ recipe.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='index.css')}}" />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Big+Shoulders+Text:100,300,400,500,600,700,800,900&display=swap");
+      body {
+        font-family: "Big Shoulders Text", cursive;
+      }
+      .nav-container {
+        min-height: 8vh;
+      }
+      h1 {
+        text-align: center;
+        font-size: 4rem;
+      }
+      .nutrients h1 {
+        text-align: center;
+        font-size: 5rem;
+        font-weight: bold;
+      }
+      .nutrients h3 {
+        font-size: 2.5rem;
+      }
+      .recipe-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+      .img-container {
+        margin-top: 3rem;
+        display: flex;
+        justify-content: space-between;
+      }
+      .img-container p {
+        margin: auto;
+        margin-left: 3rem;
+        margin-right: 3rem;
+        text-align: justify;
+        font-size: 1.8rem;
+      }
+      img {
+        margin-left: 5rem;
+        min-width: 30%;
+        height: auto;
+      }
+      .recipe-info {
+        display: flex;
+        margin-top: 5rem;
+        margin-bottom: 5rem;
+      }
+      .recipe-info h1 {
+        margin-bottom: 2rem;
+      }
+      .left {
+        width: 50%;
+      }
+      .left li {
+        font-size: 2rem;
+        margin-left: 5rem;
+      }
+      .middle {
+        display: flex;
+        width: 100%;
+        justify-content: space-evenly;
+      }
+      .right {
+        width: 100%;
+        margin-left: 5rem;
+      }
+      .right h2 {
+        text-align: justify;
+        padding: 0rem 2rem;
+        margin-top: 2 rem;
+      }
+      .img-container .button {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        align-self: center;
+        margin-right: 5rem;
+      }
+      .img-container .button button {
+        outline: none;
+        border: none;
+        background: black;
+        color: white;
+        height: 10rem;
+        border-radius: 2rem;
+        font-size: 5rem;
+        text-align: center;
+        padding: 0.5rem 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav-container">
+      <nav>
+        <ul class="nav-flex-row">
+          <li class="nav-item">
+            <a href="{{ url_for('main_page') }}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('nutrition') }}">Nutrition</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('diet_selection') }}">Diet Selection</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-item" href="{{ url_for('my_recipes') }}"
+              >My Recipes</a
+            >
+            <li class="nav-item">
+              <a class="nav-item" href="{{ url_for('get_meal_plan') }}">Get a Meal Plan</a>
+            </li>
+          </li>
+          <li class="nav-item">
+            <a class="nav-item" href="{{ url_for('logout') }}">Log Out</a>
+          </li>
+        </ul>
+      </nav>
     </div>
-    <div class="button">
-      {% if fav %}
-      <a
-        href="{{ url_for('favorite', title=recipe_object.title, image=recipe_object.image, calories=recipe_object.calories, carbs=recipe_object.carbs, fat=recipe_object.fat,protein=recipe_object.protein, recipe_id=recipe_object.recipe_id, user_id=recipe_object.user_id) }}"><button>Fav</button></a>
-      {% else %}
-      <a href="{{ url_for('unfavorite', recipe_id=recipe_object.recipe_id) }}"><button>Un-Fav</button></a>
-      {% endif %}
-    </div>
-  </div>
-</body>
+    <h1>The Recipe: {{ recipe.title }}</h1>
+    <div class="recipe-container">
 
+      <div class="img-container">
+        <img src="{{ recipe.image }}" alt="" />
+        <p>
+          {{recipe.summary}}
+        </p>
+        <div class="button">
+          {% if fav %}
+          <a
+            href="{{ url_for('favorite', title=recipe.title, image=recipe.image, recipe_id=recipe.recipe_id) }}"
+            ><button>Fav</button></a
+          >
+          {% else %}
+          <a
+            href="{{ url_for('unfavorite', recipe_id=recipe.recipe_id) }}"
+            ><button>UnFav</button></a
+          >
+          {% endif %}
+      </div>
+      </div>
+      <div class="recipe-info">
+        <div class="left">
+          <h1>Ingredients:</h1>
+          <ul>
+            {% for ingredient in recipe.ingredients %}
+            <li>{{ingredient}}</li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="middle">
+          <div class="nutrients">
+            <h1>Nutrients:</h1>
+            <h3>Calories: {{recipe.calories}}</h3>
+            <h3>Carbohydrates: {{recipe.carbs}}</h3>
+            <h3>Fat: {{recipe.fat}}</h3>
+            <h3>Protein: {{recipe.protein}}</h3>
+          </div>
+          {% if recipe.instructions%}
+        <div class="right">
+          <h1>Instructions:</h1>
+            {% for instruction in recipe.instructions %}
+            <h2>{{instruction}}</h2>
+            {% endfor %}
+          </div>
+          {% endif %}
+      </div>
+    </div>
+  </body>
 </html>
