@@ -302,6 +302,31 @@ def unfavorite(recipe_id):
     return redirect(url_for("my_recipes"))
 
 
+@app.route(
+    "/add_to_do/<string:title>/<path:image>/<int:recipe_id>", methods=["GET", "POST"]
+)
+def add_to_do(title, image, recipe_id):
+    recipe_to_do = FoodRecipe(
+        user_id=session["user"]["id"],
+        title=title,
+        image=image,
+        recipe_id=recipe_id,
+    )
+    db.session.add(recipe_to_do)
+    db.session.commit()
+    # return to main page
+    return redirect(url_for("to_do"))
+
+
+@app.route("/remove_to_do/<int:recipe_id>", methods=["GET", "POST"])
+def remove_to_do(recipe_id):
+    # put info in databas
+    recipe_to_do = FoodRecipe.query.filter_by(recipe_id=recipe_id).delete()
+    db.session.commit()
+    # return to main page
+    return redirect(url_for("to_do"))
+
+
 @app.route("/nutrition", methods=["GET", "POST"])
 def nutrition():
     # return render_template("nutrition.html")
