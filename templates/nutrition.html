@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 
+
 <head>
   <title>Nutrition</title>
   <link rel="stylesheet" href="{{ url_for('static',filename='index.css')}}" />
@@ -12,47 +13,46 @@
       box-sizing: border-box;
     }
 
-    body {
-      margin: 0;
-      font-family: Arial;
-    }
+    
+      body {
+        margin: 0;
+        font-family: Arial;
+      }
+      nav {
+        min-height: 8vh;
+      }
+      img {
+        max-width: 30%;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <ul class="nav-flex-row">
+        <li class="nav-item">
+          <a href="{{ url_for('main_page') }}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url_for('nutrition') }}">Nutrition</a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url_for('diet_selection') }}">Diet Selection</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-item" href="{{ url_for('my_recipes') }}">My Recipes</a>
+        </li>
+		<li class="nav-item">
+          <a class="nav-item" href="{{ url_for('get_meal_plan') }}">Recipes by Ingredients</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-item" href="{{ url_for('logout') }}">Log Out</a>
+        </li>
+      </ul>
+    </nav>
+<center>
+<h1>This is the food nutrition page</h1>
+  <h2 style="padding-top: 3%;">
 
-    nav {
-      min-height: 8vh;
-    }
-
-    img {
-      max-width: 30%;
-    }
-  </style>
-</head>
-
-<body>
-  <nav>
-    <ul class="nav-flex-row">
-      <li class="nav-item">
-        <a href="{{ url_for('main_page') }}">Home</a>
-      </li>
-      <li class="nav-item">
-        <a href="{{ url_for('nutrition') }}">Nutrition</a>
-      </li>
-      <li class="nav-item">
-        <a href="{{ url_for('diet_selection') }}">Diet Selection</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-item" href="{{ url_for('my_recipes') }}">My Recipes</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-item" href="{{ url_for('get_meal_plan') }}">Get a Meal Plan</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-item" href="{{ url_for('logout') }}">Log Out</a>
-      </li>
-    </ul>
-  </nav>
-  <center>
-    <h1>This is the food nutrition page</h1>
-    <h2 style="padding-top: 3%;">
       It's time for cooking! What do you have in the fridge? <br>
     </h2>
     <br><br>
