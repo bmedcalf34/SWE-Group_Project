@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe Not Found</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static',filename='index.css')}}"
+    />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <style>
+        @import url("https://fonts.googleapis.com/css?family=Big+Shoulders+Text:100,300,400,500,600,700,800,900&display=swap");
+        body {
+          font-family: "Big Shoulders Text", cursive;
+        }
+        .nav-container {
+        min-height: 8vh;
+      }
+      h1 {
+          text-align: center;
+          font-size: 5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav-container">
+      <nav>
+        <ul class="nav-flex-row">
+          <li class="nav-item">
+            <a href="{{ url_for('main_page') }}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('nutrition') }}">Nutrition</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('diet_selection') }}">Diet Selection</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-item" href="{{ url_for('my_recipes') }}"
+              >My Recipes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-item" href="{{ url_for('to_do') }}">Recipes To Cook</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-item" href="{{ url_for('logout') }}">Log Out</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <h1>Recipe Information not Found! Search another recipe!</h1>
+  </body>
+</html>

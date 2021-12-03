@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Big+Shoulders+Text:100,300,400,500,600,700,800,900&display=swap");
+      body {
+        font-family: "Big Shoulders Text", cursive;
+      }
+      h1 {
+        text-align: center;
+        font-size: 3rem;
+      }
+      #header {
+        font-size: 5rem;
+        font-weight: bold;
+      }
+      .form-container {
+        background-color: black;
+        border-radius: 1rem;
+        width: 40%;
+        margin: auto;
+        margin-top: 5rem;
+        margin-bottom: 5rem;
+        display: flex;
+        flex-direction: column;
+      }
+      .form-container h1 {
+        color: white;
+        font-size: 4rem;
+        padding-left: 5rem;
+      }
+
+      .form-container ul {
+        margin: 2rem;
+      }
+
+      .form-container ul li {
+        list-style: none;
+        color: white;
+        font-size: 2rem;
+      }
+
+      .form-container ul li::before {
+        content: "\2022";
+        color: white;
+        display: inline-block;
+        margin-left: -1rem;
+        padding-right: 1rem;
+      }
+
+      form {
+        padding-left: 5rem;
+        padding-bottom: 0rem;
+        display: flex;
+        flex-direction: column;
+      }
+
+      form p {
+        font-size: 3rem;
+        margin-top: 2rem;
+        color: white;
+      }
+
+      form p input {
+        border: none;
+        width: 75%;
+        line-height: 2rem;
+        font-size: 2.5rem;
+        font-family: "Big Shoulders Text", cursive;
+      }
+
+      form p #submit {
+        padding: 1rem;
+        font-size: 2rem;
+        font-weight: bold;
+        border-radius: 1rem;
+        margin-bottom: 1rem;
+        font-family: "Big Shoulders Text", cursive;
+        cursor: pointer;
+      }
+
+      .form-container a {
+        text-decoration: none;
+        font-size: 2rem;
+        padding-left: 5rem;
+        margin-bottom: 2rem;
+        color: white;
+      }
+
+      .form-container a:hover {
+        color: white;
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="header">Welcome to the Nutritiona App! </h1>
+    <h1>Please Sign up to be a member or if you are already, login.</h1>
+    <div class="form-container">
+      <h1>Login Page</h1>
+      {% with messages = get_flashed_messages() %} {% if messages %}
+      <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %} {% endwith %}
+      <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+          {{ form.username.label }}<br />
+          {{ form.username(size = 32) }} {% for error in form.username.errors %}
+          <span style="color: red">[{{ error }}]</span>
+          {% endfor %}
+        </p>
+        <p>
+          {{ form.password.label }}<br />
+          {{ form.password(size = 32) }} {% for error in form.password.errors %}
+          <span style="color: red">[{{ error }}]</span>
+          {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+      </form>
+      <a href="{{ url_for('sign_up') }}">Don't have an account? Sign Up</a>
+    </div>
+  </body>
+</html>

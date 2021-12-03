@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipes Search</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='index.css')}}" />
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Big+Shoulders+Text:100,300,400,500,600,700,800,900&display=swap");
+      body {
+        font-family: "Big Shoulders Text", cursive;
+      }
+      .nav-container {
+        min-height: 8vh;
+      }
+      h1 {
+        text-align: center;
+        font-size: 5rem;
+      }
+      h1 span {
+        font-weight: bold;
+      }
+      .recipes-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+      .recipes-container a {
+        cursor: pointer;
+        color: black;
+        text-decoration: none;
+      }
+      .recipe-container {
+        margin: 2.5rem 1rem;
+      }
+      .recipe-container h2 {
+        font-size: 2rem;
+        font-weight: bold;
+        padding-left: 0.5rem;
+      }
+      .recipe-container img {
+        height: 100%;
+        width: 100%;
+        border-radius: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav-container">
+      <nav>
+        <ul class="nav-flex-row">
+          <li class="nav-item">
+            <a href="{{ url_for('main_page') }}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('nutrition') }}">Nutrition</a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url_for('diet_selection') }}">Diet Selection</a>
+          </li>
+          <li class="nav-item" >
+            <a class="nav-item" href="{{ url_for('my_recipes') }}">My Recipes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-item" href="{{ url_for('to_do') }}">Recipes To Cook</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-item" href="{{ url_for('get_meal_plan') }}">Get a Meal Plan</a>
+          </li>
+          <li class="nav-item" >
+            <a class="nav-item" href="{{ url_for('logout') }}">Log Out</a>
+          </li>
+        </ul>
+      </nav>
+      </div>
+    <h1>Search Results for: <span>{{ search }}</span></h1>
+    <div class="recipes-container">
+      {% for recipe in recipes %}
+      <a
+        href="{{ url_for('recipe', recipe_id=recipe.recipe_id) }}"
+        ><div class="recipe-container">
+          <h2>{{recipe.title}}</h2>
+          <br />
+          <img src="{{ recipe.image }}" alt="" /></div
+      ></a>
+      {% endfor %}
+    </div>
+  </body>
+</html>
