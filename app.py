@@ -348,8 +348,8 @@ def get_meal_plan():
 @app.route("/meal_plan", methods=["GET", "POST"])
 def render_meal_plan():
     if request.method == "POST":
-        print('We are posting here')
-        
+        print("We are posting here")
+
         timeFrame = "week"
         targetCalories = request.form.get("targetCalories")
         exclude = request.form.get("exclude")
@@ -422,15 +422,18 @@ def render_meal_plan():
                     carbs=carbs,
                     protein=protein,
                     day=day,
-                    sourceUrl = sourceUrl,
-                    readyInMinutes = readyInMinutes,
-                    servings = servings,
+                    sourceUrl=sourceUrl,
+                    readyInMinutes=readyInMinutes,
+                    servings=servings,
                 )
                 mealplans.append(mealplan)
         print(mealplan.title)
-        return render_template("meal_plan.html",mealplans=mealplans,week=response["week"])
+        return render_template(
+            "meal_plan.html", mealplans=mealplans, week=response["week"]
+        )
     else:
         return render_template("meal_plan.html")
+
 
 @app.route("/diet_selection")
 def diet_selection():
@@ -480,19 +483,6 @@ def recipe(title, image, calories, carbs, fat, protein, recipe_id, user_id):
     recipe_object = {
         "title": title,
         "image": image,
-        "calories": calories,
-        "carbs": carbs,
-        "fat": fat,
-        "protein": protein,
-        "recipe_id": recipe_id,
-        "user_id": user_id,
-    }
-
-
-@login_required
-def mealplan(title, calories, carbs, fat, protein, recipe_id, user_id):
-    recipe_object = {
-        "title": title,
         "calories": calories,
         "carbs": carbs,
         "fat": fat,

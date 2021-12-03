@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Nutrition</title>
-    <link rel="stylesheet" href="{{ url_for('static',filename='index.css')}}" />
-    <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
-    <style>
-      * {
-        box-sizing: border-box;
-      }
 
+
+<head>
+  <title>Nutrition</title>
+  <link rel="stylesheet" href="{{ url_for('static',filename='index.css')}}" />
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    
       body {
         margin: 0;
         font-family: Arial;
@@ -53,23 +52,27 @@
 <center>
 <h1>This is the food nutrition page</h1>
   <h2 style="padding-top: 3%;">
-      It's time for cooking! What do you have in the fridge? <br>
-  </h2>
-  <br><br>
-  <form action="/nutrition" method = "post">
-      <div class="input-group mb-3" style="max-width: 50%;">
-          <input type="text" class="form-control" placeholder="Apple, flour, sugar" aria-label="Ingridients" aria-describedby="button-addon2" name="recipe">
-		  <input type="text" class="form-control" placeholder="1" aria-label="Ingredients" aria-describedby="button-addon2" name="amount">
-          <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="submit">Search</button>
-          </div>          
-      </div>
-  </form>
 
-<img src="{{food_url}}" class="d-block w-100" alt="food">
-{%for i in range(0, len)%} 
-<p> {{nutrient_name[i]}}  {{ nutrients_amount[i]}} {{nutrients_unit[i] }}  </p>
-{%endfor%}
-</center>
-  </body>
+      It's time for cooking! What do you have in the fridge? <br>
+    </h2>
+    <br><br>
+    <form action="/nutrition" method="post">
+      <div class="input-group mb-3" style="max-width: 50%;">
+        <input type="text" class="form-control" placeholder="Apple, flour, sugar" aria-label="Ingridients"
+          aria-describedby="button-addon2" name="recipe">
+        <input type="text" class="form-control" placeholder="1" aria-label="Ingredients"
+          aria-describedby="button-addon2" name="amount">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="submit">Search</button>
+        </div>
+      </div>
+    </form>
+
+    <img src="{{food_url}}" class="d-block w-100" alt="food">
+    {%for i in range(0, len)%}
+    <p> {{nutrient_name[i]}} {{ nutrients_amount[i]}} {{nutrients_unit[i] }} </p>
+    {%endfor%}
+  </center>
+</body>
+
 </html>
