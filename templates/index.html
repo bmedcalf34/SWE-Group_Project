@@ -12,11 +12,13 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
   <title>Nutritiona Website</title>
+
 </head>
 
 <body>
-
-
+  <div class="alert alert-success" role="alert">
+    Logged in as: {{username}}
+  </div>
   <nav>
     <ul class="nav-flex-row">
       <li class="nav-item">
@@ -63,21 +65,14 @@
         <input type="number" name="maxVal" placeholder="Enter Max Value in grams">
         <button type="submit">Search</button>
       </form>
-    </div>
-    <a class="link-to-book" href="#reservations">Book a table</a>
-
-    <a class="link-to-book" href="#reservations">Welcome {{login_name}}</a>
-    </div>
     {%endif%}
   </section>
 
   <section class="about-section">
-    <article>
-      <p>
-        Welcome to Nutritiona the App for Eating, Cooking and adjusting one's diet according to dietary and health
+      <p class = "text-center">
+        Welcome to Nutritiona: The app for eating, cooking and adjusting one's diet according to dietary and health
         needs.
       </p>
-    </article>
   </section>
 
   <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
