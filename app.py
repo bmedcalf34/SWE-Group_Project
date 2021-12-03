@@ -173,6 +173,13 @@ def my_recipes():
     return render_template("my_recipes.html", food_recipes=food_recipes)
 
 
+@app.route("/to_do", methods=["GET", "POST"])
+@login_required
+def to_do():
+    food_recipes = FoodRecipe.query.filter_by(user_id=session["user"]["id"]).all()
+    return render_template("to_do.html", food_recipes=food_recipes)
+
+
 @app.route("/recipes", methods=["GET", "POST"])
 @login_required
 def recipes():
