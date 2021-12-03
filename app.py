@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Nov  9 21:10:10 2021
+@author: Maryam Botrus
+Able Saw
+"""
+
 import flask
 from flask import Flask
 
@@ -17,35 +24,17 @@ from flask_login import (
 )
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
-import requests
 
 import dotenv
 import os
 
 dotenv.load_dotenv(dotenv.find_dotenv())
 
-app = Flask(__name__)
-
-import requests
-
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Nov  9 21:10:10 2021
-@author: Maryam Botrus
-Able Saw
-"""
-import flask
-from flask import Flask, request
-import requests
-from flask import render_template
-import os
-import time
 import spoonacular as sp
 from flask_login import UserMixin
 from flask_login import login_user, current_user, LoginManager
 
 import dotenv
-import os
 
 dotenv.load_dotenv(dotenv.find_dotenv())
 
