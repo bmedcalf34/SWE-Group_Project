@@ -17,7 +17,8 @@
 
 <body>
   <div class="alert alert-success" role="alert">
-    Logged in as: {{username}}
+    Logged in as: {{ user.username }} 
+    <a class="nav-item" href="{{ url_for('logout') }}">(Log Out)</a>
   </div>
   <nav>
     <ul class="nav-flex-row">
@@ -104,12 +105,10 @@
     <div class="row-flex">
       <div class="opening-time">
         <h3>
-          Opening times
+          Hours of Operation
         </h3>
         <p>
-          <span>Monday—Thursday: 08:00 — 22:00</span>
-          <span>Friday—Saturday: 09:00 — 23:00 </span>
-          <span>Sunday: 10:00 — 17:00</span>
+          <span>24/7 as Long as Heroku Doesn't Crash</span>
         </p>
       </div>
       <div class="contact-adress">
@@ -118,8 +117,10 @@
         </h3>
         <p>
           <span>Team 7</span>
-          <span>GSU Software Engineering</span>
-
+          <span>Maryam Botrus: email</span>
+          <span>Able Saw: email</span>
+          <span>Shaunniel Reid: email</span>
+          <span>Ben Medcalf: email</span>
         </p>
       </div>
     </div>
