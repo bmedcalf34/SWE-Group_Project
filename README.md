@@ -45,17 +45,26 @@ Cameron Payne wants him and his wife to eat healthier. He wants to have the abil
 
 <em> User Story IV </em>
 
-Implemented by ...
-
 Implemented by Ben Medcalf
 
 Stephen wants to get better at cooking from home so that he can eat out less and save money. He doesn't have a great idea how to start so he navigates to the Nutritiona app. From the main page, he is able to login or sign up to a new account so that he can save recipes that he likes. In order to find some recipes, Stephen goes to the "Recipes" section of the app. From here, he can enter an ingredient and an amount of recipes he would like to see. 
 Looking into his cupboard, Stephen sees that he has a good amount of potatoes, so he searches for 10 potato recipes. He can then view these recipes and sasve them for later on his account.
 This app funcionality is made up of the search.py file, which contains the search algorithm, as well as the signup.html, login.html, index.html, and recipes.html files for signing up, logging in, and navigating to the recipe functionality.
 
-<em> User Story IV </em>
+<em> User Story V </em>
    
+Implemented by ...
+
+<em> User Story VI </em>
+   
+Implemented by ...
 
 
+<em> User Story VII </em>
+   
+Implemented by ...
 
+
+<em> User Story VIII </em>
+   
 Implemented by ...
