@@ -1,5 +1,5 @@
 # SWE-Group_Project
-https://swe-group-project.herokuapp.com/
+https://swe-sprint-2.herokuapp.com/login?next=%2F
 
 SWE Project Readme  
 
