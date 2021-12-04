@@ -64,7 +64,11 @@ Main Page -> Get a Meal Plan -> Meal Plan Calendar
 
 <em> User Story VI </em>
    
-Implemented by ...
+Implemented by Ben Medcalf
+
+Luka is looking to find some recipes he wants to cook over the next few days. To do this, Luka uses the search functionality of the Nutritiona app. From here, he can find recipes based on diet, nutrition info, and name, which is important for Luka, since he is a professional athlete. After searching for somre recipes, Luka has the ability to favorite recipes, but also to add them to a "To-Do" list. From this list, he can discern which recipes he wants to prioritize in cooking, and access them from the "To-Do" link at the top of the page. When he has cooked a recipe, he can then remove it from the list and add new ones.
+
+This functionality involves the signup, login, index, to_do, and recipe html pages, as well as the add/remove functions in the app.py file of our app.
 
 
 <em> User Story VII </em>
