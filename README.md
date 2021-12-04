@@ -1,3 +1,6 @@
+# Updated Link for Sprint 2 
+https://swe-sprint-2.herokuapp.com/
+
 # SWE-Group_Project
 https://swe-group-project.herokuapp.com/
 
