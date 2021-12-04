@@ -64,7 +64,7 @@ Main Page -> Get a Meal Plan -> Meal Plan Calendar
 
 <em> User Story VI </em>
    
-Implemented by ...
+Implemented by Shaunniel Reid 
 
 
 <em> User Story VII </em>
