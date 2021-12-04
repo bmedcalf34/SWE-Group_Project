@@ -90,9 +90,6 @@
           <a class="nav-item" href="{{ url_for('my_recipes') }}">My Recipes</a>
         </li>
         <li class="nav-item">
-          <a class="nav-item" href="{{ url_for('get_meal_plan') }}">Get a Meal Plan</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-item" href="{{ url_for('logout') }}">Log Out</a>
         </li>
       </ul>
@@ -167,49 +164,57 @@
 
       {%if render_recipes==True%} {%if render_options==1%}
 
-      <p>Meatball Pasta</p>
+      <p><a href="https://www.delish.com/cooking/recipe-ideas/recipes/a55764/best-spaghetti-and-meatballs-recipe/"> Meatball Pasta</a></p>
       <p></p>
-      <p>Plain White Rice</p>
+      <p><a href="https://themom100.com/recipe/how-to-cook-perfect-rice-on-the-stove-2/"> Plain White Rice</a></p>
       <p></p>
-      <p>Garlic Bread</p>
+      <p><a href="https://www.foodnetwork.com/recipes/rachael-ray/garlic-bread-recipe-1951706"> Garlic Bread</a></p>
       <p></p>
-      <p>Toasted Bagels</p>
+      <p><a href="https://www.yummly.com/recipes/toasted-bagel"> Toasted Bagels</a></p>
       <p></p>
-      <p>Chips and Dip</p>
+      <p><a href="https://www.julieseatsandtreats.com/crack-dip/"> Chips and Dip</a></p>
+	  <p></p>
+	  <p><a href="https://www.foodnetwork.com/recipes/food-network-kitchen/boiled-potatoes-with-butter-recipe-1944015"> Boiled Potatoes</a></p>
       <p>{%endif%} {%if render_options==2%}</p>
 
-      <p>Prime Rib</p>
+      <p><a href="https://www.simplyrecipes.com/recipes/prime_rib/"> Prime Rib</a></p>
       <p></p>
-      <p>Porter House Steak</p>
+      <p><a href="https://www.foodandwine.com/recipes/porterhouse-steak"> Porterhouse Steak</a></p>
       <p></p>
-      <p>Salmon</p>
+      <p><a href="https://cafedelites.com/sheet-pan-garlic-butter-baked-salmon/"> Salmon</a></p>
       <p></p>
-      <p>Tuna Burgers</p>
+      <p><a href="https://www.tasteofhome.com/recipes/tuna-burgers/"> Tuna Burgers</a></p>
       <p></p>
-      <p>Beef Jerky</p>
+      <p><a href="https://beefjerky.com/"> Beef Jerky</a></p>
+	  <p></p>
+	  <p><a href="https://en.wikipedia.org/wiki/Egg_as_food"> Whole Eggs </a></p>
+	  
       <p>{%endif%} {%if render_options==3%}</p>
 
-      <p>Chicken Soup</p>
+      <p><a href="https://www.tasteofhome.com/recipes/ginger-chicken-noodle-soup/"> Chicken Soup </a></p>
       <p></p>
-      <p>Water</p>
+      <p><a href="https://en.wikipedia.org/wiki/Water"> Water </a></p>
       <p></p>
-      <p>Graepfruit</p>
+      <p><a href="https://en.wikipedia.org/wiki/Grapefruit"> Grapefruit </a></p>
       <p></p>
-      <p>Tomato Soup</p>
+      <p><a href="https://www.inspiredtaste.net/27956/easy-tomato-soup-recipe/"> Tomato Soup </a></p>
       <p></p>
-      <p>Lentil Soup</p>
+      <p><a href="https://cookieandkate.com/best-lentil-soup-recipe/"> Lentil Soup </a></p>
+	  <p></p>
+	  <p> <a href="https://www.eatingwell.com/recipe/261632/vegetable-weight-loss-soup/"> Vegetable Soup </a>  </p>
       <p>{%endif%} {%if render_options==4%}</p>
 
-      <p>Italian Salad</p>
+      <p><a href="https://themodernproper.com/simple-italian-salad"> Italian Salad </a></p>
       <p></p>
-      <p>Watermelon</p>
+      <p><a href="https://en.wikipedia.org/wiki/Watermelon"> Watermelon </a></p>
       <p></p>
-      <p>Celery Sticks</p>
+      <p><a href="https://en.wikipedia.org/wiki/Celery"> Celery Sticks </a></p>
       <p></p>
-      <p>Cabbage Stew</p>
+      <p><a href="https://www.food.com/recipe/cabbage-stew-136944#activity-feed"> Cabbage Stew </a></p>
       <p></p>
-      <p>Waldorf Salad</p>
+      <p><a href="https://www.foodiecrush.com/classic-waldorf-salad/"> Waldorf Salad </a></p>
       <p>{%endif%} {%endif%}</p>
     </center>
   </body>
 </html>
+<head>
