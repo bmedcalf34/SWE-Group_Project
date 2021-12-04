@@ -2,7 +2,7 @@
 https://swe-sprint-2.herokuapp.com/
 
 # SWE-Group_Project
-https://swe-group-project.herokuapp.com/
+https://swe-sprint-2.herokuapp.com/login?next=%2F
 
 SWE Project Readme  
 
@@ -48,14 +48,36 @@ Cameron Payne wants him and his wife to eat healthier. He wants to have the abil
 
 <em> User Story IV </em>
 
-Implemented by ...
-
 Implemented by Ben Medcalf
 
 Stephen wants to get better at cooking from home so that he can eat out less and save money. He doesn't have a great idea how to start so he navigates to the Nutritiona app. From the main page, he is able to login or sign up to a new account so that he can save recipes that he likes. In order to find some recipes, Stephen goes to the "Recipes" section of the app. From here, he can enter an ingredient and an amount of recipes he would like to see. 
 Looking into his cupboard, Stephen sees that he has a good amount of potatoes, so he searches for 10 potato recipes. He can then view these recipes and sasve them for later on his account.
 This app funcionality is made up of the search.py file, which contains the search algorithm, as well as the signup.html, login.html, index.html, and recipes.html files for signing up, logging in, and navigating to the recipe functionality.
 
-<em> User Story IV </em>
+<em> User Story V </em>
+   
+Implemented by Maryam and Able 
 
+Mitchell wants to plan his meals for the week so that he can organize his schedule and spend less time thinking about what to eat. He found his way to the nutriona app through the miracle of the google search engine. Mitchell navigates to the meal planner where he starts putting in his caloric needs and the type of foods he is interested in. Mitchell is a rather strange man who only eats nuts and so Nutritiona is the perfect app for him as it allows him to search up his favorite nut based dishes like almonds, cashews, water chestnuts ect... The meal suggestions give him calorie and carb counts to help him monitor his diet and meet his weekly caloric needs. Mitchell was very thankful that he found nutritiona so that he could pursue his nut based lifestyle. 
+
+Main Page -> Get a Meal Plan -> Meal Plan Calendar 
+
+<em> User Story VI </em>
+   
+Implemented by Ben Medcalf
+
+Luka is looking to find some recipes he wants to cook over the next few days. To do this, Luka uses the search functionality of the Nutritiona app. From here, he can find recipes based on diet, nutrition info, and name, which is important for Luka, since he is a professional athlete. After searching for somre recipes, Luka has the ability to favorite recipes, but also to add them to a "To-Do" list. From this list, he can discern which recipes he wants to prioritize in cooking, and access them from the "To-Do" link at the top of the page. When he has cooked a recipe, he can then remove it from the list and add new ones.
+
+This functionality involves the signup, login, index, to_do, and recipe html pages, as well as the add/remove functions in the app.py file of our app.
+
+
+<em> User Story VII </em>
+   
+Implemented by Shaunniel Reid
+
+Jasmine is vegan and wants to be able to find healthy vegan recipes to cook herself new types of food that she never made before. She signs up for the Nutritiona web app and creates a personalized account where she can search for recipes for any type of food she likes. She can filter her search by diet (vegan, vegetarian, ketogenic, gluten free) or nutrition (calories, proteins, carbs, fat). When she searches for differet recipes she can save her favorite ones by clicking on the fav button, and now she can view all of her saved recipes in my recipes. Jasmine is very satified with the Nutritiona, and now she able to cook new vegan recipes and cook meals with the nutrition values she likes.
+
+
+<em> User Story VIII </em>
+   
 Implemented by ...

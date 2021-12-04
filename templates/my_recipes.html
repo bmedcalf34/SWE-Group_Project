@@ -71,6 +71,9 @@
           <li class="nav-item" >
             <a class="nav-item" href="{{ url_for('my_recipes') }}">My Recipes</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-item" href="{{ url_for('get_meal_plan') }}">Get a Meal Plan</a>
+          </li>
           <li class="nav-item" >
             <a class="nav-item" href="{{ url_for('logout') }}">Log Out</a>
           </li>
@@ -81,7 +84,7 @@
     <div class="recipes-container">
       {% for recipe in food_recipes %}
       <a
-        href="{{ url_for('recipe', title=recipe.title, image=recipe.image, calories=recipe.calories, carbs=recipe.carbs, fat=recipe.fat,protein=recipe.protein, recipe_id=recipe.recipe_id, user_id=recipe.user_id) }}"
+      href="{{ url_for('recipe', recipe_id=recipe.recipe_id) }}"
         ><div class="recipe-container">
           <h2>{{recipe.title}}</h2>
           <br />

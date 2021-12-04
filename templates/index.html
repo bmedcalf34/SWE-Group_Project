@@ -10,6 +10,28 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <title>Nutritiona Website</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Big+Shoulders+Text:100,300,400,500,600,700,800,900&display=swap");
+      form input, form select, form button{
+        font-family: "Big Shoulders Text", cursive;
+        background-color: black;
+        font-size: 1.5rem;
+        padding: 1rem 1rem;
+        border-radius: 1rem;
+        color: white;
+        margin: 1rem;
+      }
+      form select {
+        width: 10%;
+        padding: 1rem;
+      }
+      form button:hover {
+        background-color: rgb(36, 36, 36);
+      }
+      ::placeholder {
+        color: rgb(176, 176, 176);
+      }
+    </style>
   </head>
   <body>
     
@@ -20,7 +42,6 @@
         <a href="{{ url_for('main_page') }}">Home</a>
       </li>
       <li class="nav-item">
-
         <a href="{{ url_for('nutrition') }}">Nutrition</a>
       </li>
       <li class="nav-item">
@@ -29,19 +50,11 @@
       <li class="nav-item" >
         <a class="nav-item" href="{{ url_for('my_recipes') }}">My Recipes</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-item" href="{{ url_for('get_meal_plan') }}">Get a Meal Plan</a>
+      </li>
       <li class="nav-item" >
         <a class="nav-item" href="{{ url_for('logout') }}">Log Out</a>
-
-        <a href="recipes">Recipes</a>
-      </li>
-      <li class="nav-item">
-        <a href="nutrition">Nutrition</a>
-      </li>
-      <li class="nav-item">
-        <a href="diet_selection">Diet Selection</a>
-      </li>
-	  <li class="nav-item">
-        <a href="recipe_nutrition">Recipe Nutrition</a>
       </li>
     </ul>
   </nav>
@@ -50,11 +63,16 @@
     <header>
       <h1>Nutritiona</h1>
     </header>
-	{%if login_status==True%}
     <div class="link-to-book-wrapper">
-
       <form action="{{ url_for('recipes') }}" method="post">
         <input name="search" type="text" placeholder="Search for a recipe!">
+        <select name="diet" id="">
+          <option>Diet</option>
+          <option>Vegetarian</option>
+          <option>Vegan</option>
+          <option>Ketogenic</option>
+          <option>Gluten Free</option>
+        </select>
         <select name="filter_by" id="">
           <option>Filter by</option>
           <option>Calories</option>
@@ -62,16 +80,12 @@
           <option>Carbs</option>
           <option>Fat</option>
         </select>
-        <input type="number" name="minVal" placeholder="Enter Min Value in grams">
-        <input type="number" name="maxVal" placeholder="Enter Max Value in grams">
+        <input type="number" name="minVal" placeholder="Enter Min Value">
+        <input type="number" name="maxVal" placeholder="Enter Max Value">
         <button type="submit">Search</button>
       </form>
     </div>
     <a class="link-to-book" href="#reservations">Book a table</a>
-
-      <a class="link-to-book" href="#reservations">Welcome {{login_name}}</a>
-    </div>
-	{%endif%}
   </section>
 
   <section class="about-section">
@@ -106,25 +120,6 @@
 
   <div class="container">
     <div class="row-flex">
-
-      <div class="flex-column-form">
-        <h3>
-          Create an Account
-        </h3>
-      <form class="media-centered" method="POST" action="/login">
-          <div class="form-group">
-            <p>
-              Please sign up for our website to recieve health benefits and nutritional advice
-            </p>
-            <input type="name" class="form-control" name="username" aria-describedby="nameHelp" placeholder="Enter your username">
-          </div>
-          <div class="form-group">
-            <input type="name" class="form-control" name="password" placeholder="Enter your password">
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-	   <a href={{ url_for('signup') }}>Sign Up</a>
-      </div>
       <div class="opening-time">
         <h3>
           Opening times
@@ -142,7 +137,7 @@
         <p>
           <span>Team 7</span>
           <span>GSU Software Engineering</span>
-          
+          <span> maryambotrus@gmail.com</span>
         </p>
       </div>
     </div>

@@ -164,192 +164,57 @@
 
       {%if render_recipes==True%} {%if render_options==1%}
 
-      <p>Meatball Pasta</p>
+      <p><a href="https://www.delish.com/cooking/recipe-ideas/recipes/a55764/best-spaghetti-and-meatballs-recipe/"> Meatball Pasta</a></p>
       <p></p>
-      <p>Plain White Rice</p>
+      <p><a href="https://themom100.com/recipe/how-to-cook-perfect-rice-on-the-stove-2/"> Plain White Rice</a></p>
       <p></p>
-      <p>Garlic Bread</p>
+      <p><a href="https://www.foodnetwork.com/recipes/rachael-ray/garlic-bread-recipe-1951706"> Garlic Bread</a></p>
       <p></p>
-      <p>Toasted Bagels</p>
+      <p><a href="https://www.yummly.com/recipes/toasted-bagel"> Toasted Bagels</a></p>
       <p></p>
-      <p>Chips and Dip</p>
+      <p><a href="https://www.julieseatsandtreats.com/crack-dip/"> Chips and Dip</a></p>
+	  <p></p>
+	  <p><a href="https://www.foodnetwork.com/recipes/food-network-kitchen/boiled-potatoes-with-butter-recipe-1944015"> Boiled Potatoes</a></p>
       <p>{%endif%} {%if render_options==2%}</p>
 
-      <p>Prime Rib</p>
+      <p><a href="https://www.simplyrecipes.com/recipes/prime_rib/"> Prime Rib</a></p>
       <p></p>
-      <p>Porter House Steak</p>
+      <p><a href="https://www.foodandwine.com/recipes/porterhouse-steak"> Porterhouse Steak</a></p>
       <p></p>
-      <p>Salmon</p>
+      <p><a href="https://cafedelites.com/sheet-pan-garlic-butter-baked-salmon/"> Salmon</a></p>
       <p></p>
-      <p>Tuna Burgers</p>
+      <p><a href="https://www.tasteofhome.com/recipes/tuna-burgers/"> Tuna Burgers</a></p>
       <p></p>
-      <p>Beef Jerky</p>
+      <p><a href="https://beefjerky.com/"> Beef Jerky</a></p>
+	  <p></p>
+	  <p><a href="https://en.wikipedia.org/wiki/Egg_as_food"> Whole Eggs </a></p>
+	  
       <p>{%endif%} {%if render_options==3%}</p>
 
-      <p>Chicken Soup</p>
+      <p><a href="https://www.tasteofhome.com/recipes/ginger-chicken-noodle-soup/"> Chicken Soup </a></p>
       <p></p>
-      <p>Water</p>
+      <p><a href="https://en.wikipedia.org/wiki/Water"> Water </a></p>
       <p></p>
-      <p>Graepfruit</p>
+      <p><a href="https://en.wikipedia.org/wiki/Grapefruit"> Grapefruit </a></p>
       <p></p>
-      <p>Tomato Soup</p>
+      <p><a href="https://www.inspiredtaste.net/27956/easy-tomato-soup-recipe/"> Tomato Soup </a></p>
       <p></p>
-      <p>Lentil Soup</p>
+      <p><a href="https://cookieandkate.com/best-lentil-soup-recipe/"> Lentil Soup </a></p>
+	  <p></p>
+	  <p> <a href="https://www.eatingwell.com/recipe/261632/vegetable-weight-loss-soup/"> Vegetable Soup </a>  </p>
       <p>{%endif%} {%if render_options==4%}</p>
 
-      <p>Italian Salad</p>
+      <p><a href="https://themodernproper.com/simple-italian-salad"> Italian Salad </a></p>
       <p></p>
-      <p>Watermelon</p>
+      <p><a href="https://en.wikipedia.org/wiki/Watermelon"> Watermelon </a></p>
       <p></p>
-      <p>Celery Sticks</p>
+      <p><a href="https://en.wikipedia.org/wiki/Celery"> Celery Sticks </a></p>
       <p></p>
-      <p>Cabbage Stew</p>
+      <p><a href="https://www.food.com/recipe/cabbage-stew-136944#activity-feed"> Cabbage Stew </a></p>
       <p></p>
-      <p>Waldorf Salad</p>
+      <p><a href="https://www.foodiecrush.com/classic-waldorf-salad/"> Waldorf Salad </a></p>
       <p>{%endif%} {%endif%}</p>
     </center>
   </body>
 </html>
 <head>
-  <title>Diets</title>
-  <style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: Arial;
-}
-
-/* The grid: Four equal columns that floats next to each other */
-.column {
-  float: left;
-  width: 25%;
-  padding: 10px;
-}
-
-/* Style the images inside the grid */
-.column img {
-  opacity: 0.8; 
-  cursor: pointer; 
-}
-
-.column img:hover {
-  opacity: 1;
-}
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* The expanding image container */
-.container {
-  position: relative;
-  display: none;
-}
-
-/* Expanding image text */
-#imgtext {
-  position: absolute;
-  bottom: 15px;
-  left: 15px;
-  color: white;
-  font-size: 20px;
-}
-
-/* Closable button inside the expanded image */
-.closebtn {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  color: white;
-  font-size: 35px;
-  cursor: pointer;
-}
-  </style>
-</head>
-<body>
-<center>
-<h1>Pick Your Dietary Goal!</h1>
-
-<!-- The four columns -->
-<div class="row">
-  <div class="column">
-  <figure>
-   <a href="diet_selection_carbs">
-    <img src="{{ url_for('static', filename= 'images/' + 'carbs.jpg') }}" alt="Nature" style="width:100%" width="150" height="200" onclick="myFunction(this);">
-  </a>
-  <figcaption>Hibernating for the Winter</figcaption>
-  </figure>
-  </div>
-  <div class="column">
-    <figure>
-	<a href="diet_selection_meat">
-	<img src="{{ url_for('static', filename= 'images/' + 'protein.jpg') }}" alt="Snow" style="width:100%" width="150" height="200" onclick="myFunction(this);">
-    </a>
-	<figcaption>Building Muscle</figcaption>
-    </figure> 
-  </div>
-  <div class="column">
-    <figure>
-	<a href="diet_selection_liquid">
-	<img src="{{ url_for('static', filename= 'images/' + 'liquids.jpg') }}" alt="Mountains" style="width:100%" width="150" height="200" onclick="myFunction(this);">
-    </a>
-	<figcaption>Liquid Diet</figcaption>
-	</figure>
-  </div>
-  <div class="column">
-    <figure>
-	<a href="diet_selection_loss">
-	<img src="{{ url_for('static', filename= 'images/' + 'weight_loss.jpg') }}" alt="Lights" style="width:100%" width="150" height="200" onclick="myFunction(this);">
-    </a>
-	<figcaption>Losing Weight</figcaption>
-	</figure>
-  </div>
-</div>
-
-{%if render_recipes==True%}
-
-{%if render_options==1%}
-
-<p> Meatball Pasta <p>
-<p> Plain White Rice <p>
-<p> Garlic Bread <p>
-<p> Toasted Bagels <p>
-<p> Chips and Dip <p>
-
-{%endif%}
-
-{%if render_options==2%}
-<p> Prime Rib <p>
-<p> Porter House Steak <p>
-<p> Salmon <p>
-<p> Tuna Burgers <p>
-<p> Beef Jerky <p>
-{%endif%}
-
-{%if render_options==3%}
-<p> Chicken Soup <p>
-<p> Water <p>
-<p> Graepfruit <p>
-<p> Tomato Soup <p>
-<p> Lentil Soup <p>
-{%endif%}
-
-{%if render_options==4%}
-<p> Italian Salad <p>
-<p> Watermelon <p>
-<p> Celery Sticks <p>
-<p> Cabbage Stew <p>
-<p> Waldorf Salad <p>
-{%endif%}
-
-{%endif%}
-
-</center>
-</body>
-</html>

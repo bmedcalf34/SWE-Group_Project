@@ -71,6 +71,9 @@
           <li class="nav-item" >
             <a class="nav-item" href="{{ url_for('my_recipes') }}">My Recipes</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-item" href="{{ url_for('get_meal_plan') }}">Get a Meal Plan</a>
+          </li>
           <li class="nav-item" >
             <a class="nav-item" href="{{ url_for('logout') }}">Log Out</a>
           </li>
@@ -81,7 +84,7 @@
     <div class="recipes-container">
       {% for recipe in recipes %}
       <a
-        href="{{ url_for('recipe', title=recipe.title, image=recipe.image, calories=recipe.calories, carbs=recipe.carbs, fat=recipe.fat,protein=recipe.protein, recipe_id=recipe.recipe_id, user_id=recipe.user_id) }}"
+        href="{{ url_for('recipe', recipe_id=recipe.recipe_id) }}"
         ><div class="recipe-container">
           <h2>{{recipe.title}}</h2>
           <br />
@@ -90,27 +93,4 @@
       {% endfor %}
     </div>
   </body>
-</html>
-<html>
-<head>
-  <title>Recipes</title>
-</head>
-<body>
-<center>
-<h1>This is the recipes page</h1>
-<h2 style="padding-top: 3%;">
-      Are you hungry? Lets see what you can cook up <br>
-  </h2>
-<form action="/nutrition" method = "post">
-      <div class="input-group mb-3" style="max-width: 50%;">
-          <input type="text" class="form-control" placeholder="Apple, carrot, potato" aria-label="Ingredients" aria-describedby="button-addon2" name="ingredients">
-		  <input type="text" class="form-control" placeholder="2" aria-label="Ingredients" aria-describedby="button-addon2" name="amount">
-          <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
-          </div>          
-      </div>
-  </form>
-  
-</center>
-</body>
 </html>
